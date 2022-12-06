@@ -1,12 +1,10 @@
 # Contains all python code for UI
 
 #These are the default titles, there will be no change to this
-header_titles_original = {"Inflow":1, "Income":1, "Rent":1, "Subscriptions":1, "Comments":0}
+left_header_titles_original = {"Inflow":1, "Income":1, "Rent":1, "Subscriptions":1, "Comments":0}
+right_headerTitles_original = { }
 week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Spent":1, "Comments":0}
 
-#These are the same default titles except users will be given freedom to change this as they wish
-header_titles = {"Inflow":1, "Income":1, "Rent":1, "Subscriptions":1, "Comments":0}
-week_titles = {"Date":0, "Notes":0, "Reflections":0, "Spent":1, "Comments":0}
 
 #This dictionary stores everything we need to initialise the calendar where its value will be initialised systematically by default or by user
 #It is initialised with default values
@@ -15,7 +13,13 @@ week_titles = {"Date":0, "Notes":0, "Reflections":0, "Spent":1, "Comments":0}
 #Index 2 - START_DAY -> 0 is Monday, 6 is Sunday
 #Index 3 - left_headerTitles
 #Index 4 - right_headerTitles
-RETURN_DICT = {"YEAR": 2023, "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30}, "START_DAY": 0}
+#Index 5 - week titles
+RETURN_DICT = { "YEAR": 2023,\
+                "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30},\
+                "START_DAY": 0,\
+                "left_headerTitles": {"Inflow":1, "Income":1, "Rent":1, "Subscriptions":1, "Comments":0},\
+                "right_headerTitles": {}, \
+                "week_titles": {"Date":0, "Notes":0, "Reflections":0, "Spent":1, "Comments":0}   }
 
 #For debugging
 def printRETURN_DICT():
@@ -55,8 +59,8 @@ def updateRETURN_DICT(keyIndex, newValue):
 #This function is called by UserMainSelection1() to direct users to their respective functions
 def UserSelection1Direct(selection1):
 
+    #Set Start Day of week
     if (selection1==1):
-        
         setSTART_DAY()
 
     elif (selection1==2):
@@ -65,9 +69,11 @@ def UserSelection1Direct(selection1):
     elif (selection1==3):
         print("Edit right header")
 
+    #Edit Weekly Rows
     elif (selection1==4):
-        print("Edit weekly rows")
-    
+        EditWeekTitles()
+
+    #This else statement should never execute
     else:
         print("Bug2!")
 
@@ -128,46 +134,86 @@ def setSTART_DAY():
             print("Enter a valid preference! (e.g: 1, 2..7)")
 
 
+def EditWeekTitles():
+    while True:
+        try:
+            print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename title\n4 - Re-order titles\n5 - Revert to default week titles\n0 - Save and exit")
+            choice = int(input("Selection: "))
 
+            if (choice<0 or choice>5):
+                print("Error!")
+            
+            #Adding week titles
+            elif (choice==1):
+                newWeekTitle = input("Enter your new title here: ")
+                RETURN_DICT[list(RETURN_DICT)[5]][newWeekTitle] = 0 #Accounting value set to 0 as default
+                print("Successfully added title!")
+            
+            #Removing week titles
+            elif (choice==2):
+                print("NOTE: You are not allowed to remove Date")
+                print("Current week titles")
+                for i in range(1, len(RETURN_DICT[list(RETURN_DICT)[5]])):
+                    print(f"Index {i}: {list(RETURN_DICT[list(RETURN_DICT)[5]])[i]}" )
+                    
+                print("Enter index of week title to remove: ")
+                loop=True
+                while (loop):
+                    try:
+                        index=int(input("Index: "))
+                        if (index<1 or index>len(RETURN_DICT[list(RETURN_DICT)[5]])-1):
+                            print("You entered an invalid index")
+                        else:
+                            del RETURN_DICT[list(RETURN_DICT)[5]][list(RETURN_DICT[list(RETURN_DICT)[5]])[4]]
+                            print("Successfully removed title!")
+                            loop=False
+                        
+                    except ValueError:
+                        print("Invalid index, it should be a number!")
+                    
+            
+            #Rename week titles
+            elif (choice==3):
+                print("Current week titles")
+                for i in range(1, len(RETURN_DICT[list(RETURN_DICT)[5]])):
+                    print(f"Index {i}: {list(RETURN_DICT[list(RETURN_DICT)[5]])[i]}" )
 
+                print("Enter index of week title to rename: ")
+                loop=True
+                while (loop):
+                    try:
+                        index=int(input("Index: "))
+                        if (index<1 or index>len(RETURN_DICT[list(RETURN_DICT)[5]])-1):
+                            print("You entered an invalid index")
+                        else:
+                            oldName=list(RETURN_DICT[list(RETURN_DICT)[5]])[index]  
+                            newName = input("New week title name: ")
+                            list(RETURN_DICT[list(RETURN_DICT)[5]])[index]=newName
+                            print(f"Successfully renamed from {oldName} to {newName}")
+                            loop=False
 
+                    except ValueError:
+                        print("Invalid index, it should be a number!")
+            
+            #Reorder week titles
+            elif (choice==4):
+                print("NOTE: You are not allowed to re-order Date")
+                RETURN_DICT[list(RETURN_DICT)[5]] = reOrder(RETURN_DICT[list(RETURN_DICT)[5]], 1)
 
-
-
-
-
-
-
-def printCalendarHeaderTitles(header_titles):
-    print("Your current calendar header looks like this:\n")
-    print("  JANUARY  ")
-    print("===========")
-    for i in range(len(header_titles)):
-        print(f"{header_titles[i]}: ___")
-    print()
-    return 
-        
-def printWeekTitles(week_titles, start_day):
-    print("Your current week layout looks like this:\n         \t", end="")
-    d=1
-    for i in range(7):
-        print(daysOfWeek[start_day-1], end="   ")
-        start_day = (start_day+1) % 7
-    for i in range(2):
-        print("\n\t     ", end="") 
-        for i in range(7):
-            if (((d+i)%7)==3 or ((d+i)%7)==6):
-                print("    ", d+i, "    ", end="")
-            elif(d+i<10):
-                print("    ", d+i, "   ", end="")
+            #Revert to default week titles
+            elif (choice==5):
+                RETURN_DICT[list(RETURN_DICT)[5]] = week_titles_original
+                print("Successfully reverted!")
+                
+            #Exit
             else:
-                print("    ", d+i, "  ", end="")
-        print()
-        for i in range(len(week_titles)):
-            print(f"{week_titles[i]}:")        
-        d+=7
-    print("****************************************\n")
-    return
+                return
+
+        except ValueError:
+            print("Error!")
+
+
+
 
 
 def reOrder(Dictionary, startIndex):
@@ -175,15 +221,12 @@ def reOrder(Dictionary, startIndex):
     check = [] #To check and ensure user do not enter repeated indexes
     
     #This loop is mainly for week titles since Date remains as index 0
-    for i in range(startIndex):
-        temp_dictionary[list(Dictionary)[i]] = Dictionary[list(Dictionary)[i]]
-        
-    print("Debugging: Before actual re-ordering")
-    print(temp_dictionary)
+#     for i in range(startIndex):
+#         temp_dictionary[list(Dictionary)[i]] = Dictionary[list(Dictionary)[i]]
     
     length = len(Dictionary)
     for i in range(startIndex, length):
-        print(f"Index {i+1}: {Dictionary[list(Dictionary)[i]]}")
+        print(f"Index {i+1}: {list(Dictionary)[i]}")
     print("Enter the new order from left to right by the current index")
     print("Example 3 2 1 will reverse the order")
     print("Note: Enter one index at a time, you will be prompted as may times as no. of indexes")
@@ -203,7 +246,7 @@ def reOrder(Dictionary, startIndex):
                 index-=1
                 break       
             
-        print("Debugging: ", list(Dictionary)[index])
+        #print("Debugging: ", list(Dictionary)[index])
         # temp_dictionary.append(Dictionary[index]) V1 code
         temp_dictionary[list(Dictionary)[index]] = Dictionary[list(Dictionary)[index]]
                     
@@ -278,7 +321,7 @@ def EditHeaderTitles(header_titles):
             
         #Reordering header titles
         elif (choice==4):  
-            header_titles = reOrder(header_titles, 0)
+            print("This function is not made yet!")
         #Reverting header titles back to default
         elif (choice==5):
             header_titles = header_titles_original
@@ -290,77 +333,36 @@ def EditHeaderTitles(header_titles):
 
 
 
-def EditWeekTitles(week_titles):
-    while True:
-        try:
-            print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename title\n4 - Re-order titles\n5 - Revert to default week titles\n0 - Save and exit")
-            choice = int(input("Enter: "))
-        except ValueError:
-            print("Error!")
-    
-        #Check for valid choice number
-        if (choice<0 or choice>5):
-            print("Error!")
-            continue
-        
-        #Adding week titles
-        elif (choice==1):
-            newWeekTitle = input("Enter your new title here: ")
-            week_titles.append(newWeekTitle)
-            print("Successfully added title!")
-        
-        #Removing week titles
-        elif (choice==2):
-            print("NOTE: You are not allowed to remove Date")
-            print("Current week titles")
-            for i in range(1, len(week_titles)):
-                print(f"Index {i}: {week_titles[i]}")
-            print("Enter index of week title to remove: ")
-            while True:
-                try:
-                    index=int(input("Index: "))
-                except ValueError:
-                    print("Invalid index, it should be a number!")
-                if (index<0 or index>len(week_titles)-1):
-                    print("You entered an invalid index")
-                else:
-                    break
-            week_titles.pop(index)
-            print("Successfully removed title!")
-        
-        #Rename week titles
-        elif (choice==3):
-            print("Current week titles")
-            for i in range(len(week_titles)):
-                print(f"Index {i+1}: {week_titles[i]}")
-            print("Enter index of week title to rename: ")
-            while True:
-                try:
-                    index=int(input("Index: "))
-                    index-=1
-                except ValueError:
-                    print("Invalid index, it should be a number!")
-                if (index<0 or index>len(week_titles)-1):
-                    print("You entered an invalid index")
-                else:
-                    break
-            oldName=week_titles[index]    
-            newName = input("New week title name: ")
-            week_titles[index]=newName
-            print(f"Successfully renamed from {oldName} to {newName}")
-        
-        #Reorder week titles
-        elif (choice==4):
-            print("NOTE: You are not allowed to re-order Date")
-            week_titles = reOrder(week_titles, 1)
-            
-        #Revert to default week titles
-        elif (choice==5):
-            week_titles = week_titles_original
-            print("Successfully reverted!")
-            
-        #Exit
-        else:
-            return week_titles
 
 
+
+def printCalendarHeaderTitles(header_titles):
+    print("Your current calendar header looks like this:\n")
+    print("  JANUARY  ")
+    print("===========")
+    for i in range(len(header_titles)):
+        print(f"{header_titles[i]}: ___")
+    print()
+    return 
+        
+def printWeekTitles(week_titles, start_day):
+    print("Your current week layout looks like this:\n         \t", end="")
+    d=1
+    for i in range(7):
+        print(daysOfWeek[start_day-1], end="   ")
+        start_day = (start_day+1) % 7
+    for i in range(2):
+        print("\n\t     ", end="") 
+        for i in range(7):
+            if (((d+i)%7)==3 or ((d+i)%7)==6):
+                print("    ", d+i, "    ", end="")
+            elif(d+i<10):
+                print("    ", d+i, "   ", end="")
+            else:
+                print("    ", d+i, "  ", end="")
+        print()
+        for i in range(len(week_titles)):
+            print(f"{week_titles[i]}:")        
+        d+=7
+    print("****************************************\n")
+    return
