@@ -34,6 +34,22 @@ def printRETURN_DICT():
 def END():
     return RETURN_DICT
 
+def setYEAR():
+    while True:
+        try:
+            YEAR = int(input("Enter year of calendar: "))
+            if (YEAR<2022 or YEAR>2100):
+                print("Invalid year!")
+            else:
+                #If leap year, days in Feb changed to 29 else
+                if ( (YEAR % 400 == 0) or (YEAR % 100 != 0) and (YEAR % 4 == 0) ):     
+                    updateRETURN_DICT(1, 29)
+                    
+                updateRETURN_DICT(0, YEAR)
+                return True
+
+        except ValueError:
+            print("Invalid year! Use numbers")  
 
 def updateRETURN_DICT(keyIndex, newValue):
 
@@ -98,27 +114,11 @@ def UserMainSelection1():
                         return False
                     else:
                         UserSelection1Direct(selection1)
-                        print("debugging: Exited UserSelection1Direct()")
                         loop=False
 
             except ValueError:
                 print("Invalid selection! Use numbers")
 
-def setYEAR():
-    while True:
-        try:
-            YEAR = int(input("Enter year of calendar: "))
-            if (YEAR<2022 or YEAR>2100):
-                print("Invalid year!")
-            else:
-                #If leap year, days in Feb changed to 29 else
-                if ( (YEAR % 400 == 0) or (YEAR % 100 != 0) and (YEAR % 4 == 0) ):     
-                    updateRETURN_DICT(1, 29)
-                
-                return True
-
-        except ValueError:
-            print("Invalid year! Use numbers")  
 
 def setSTART_DAY():
     print("Choose your preference on which day you prefer your calendar to start:\nBy default start day is set as Monday")
@@ -226,10 +226,6 @@ def EditWeekTitles():
         except ValueError:
             print("Error!")
 
-
-
-
-
 def reOrder(Dictionary, startIndex):
     temp_dictionary={}
     check = [] #To check and ensure user do not enter repeated indexes
@@ -259,9 +255,6 @@ def reOrder(Dictionary, startIndex):
         #print("Debugging: ", list(Dictionary)[index])
         # temp_dictionary.append(Dictionary[index]) V1 code
         temp_dictionary[list(Dictionary)[index]] = Dictionary[list(Dictionary)[index]]
-                    
-    print("After re-ordering: ")
-    print(temp_dictionary)
     Dictionary.clear()
     Dictionary = temp_dictionary
     print("Successfully re-ordered!")
