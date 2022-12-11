@@ -137,8 +137,12 @@ def setSTART_DAY():
 
 def EditWeekTitles():
     while True:
+        print("Current week titles")
+        for i in range(0, len(RETURN_DICT[list(RETURN_DICT)[5]])):
+            print(f"{i+1}: {list(RETURN_DICT[list(RETURN_DICT)[5]])[i]}" )
+        print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename title\n4 - Re-order titles\n5 - Revert to default week titles\n0 - Save and exit")
         try:
-            print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename title\n4 - Re-order titles\n5 - Revert to default week titles\n0 - Save and exit")
+            
             choice = int(input("Selection: "))
 
             if (choice<0 or choice>5):
@@ -233,6 +237,8 @@ def reOrder(Dictionary, startIndex):
     length = len(Dictionary)
     for i in range(startIndex, length):
         print(f"Index {i+1}: {list(Dictionary)[i]}")
+    if(startIndex!=0): #This if block only applies for week headers
+        temp_dictionary[list(Dictionary)[0]] = Dictionary[list(Dictionary)[0]]
     print("Enter the new order from left to right by the current index")
     print("Example 3 2 1 will reverse the order")
     print("Note: Enter one index at a time, you will be prompted as may times as no. of indexes")
@@ -251,9 +257,6 @@ def reOrder(Dictionary, startIndex):
                 check.append(index)
                 index-=1
                 break       
-            
-        #print("Debugging: ", list(Dictionary)[index])
-        # temp_dictionary.append(Dictionary[index]) V1 code
         temp_dictionary[list(Dictionary)[index]] = Dictionary[list(Dictionary)[index]]
     Dictionary.clear()
     Dictionary = temp_dictionary
@@ -263,10 +266,12 @@ def reOrder(Dictionary, startIndex):
 
 def EditHeaderTitles(dictIndex):
     while True:
+        print("Current header titles")
+        for i in range(len(RETURN_DICT[list(RETURN_DICT)[dictIndex]])):
+            print(f"{i+1}: {list(RETURN_DICT[list(RETURN_DICT)[dictIndex]])[i]}")
+        print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename titles\n4 - Re-order titles\n5 - Revert to default headers\n0 - Save and exit")
         try:
-            print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename titles\n4 - Re-order titles\n5 - Revert to default headers\n0 - Save and exit")
             choice = int(input("Enter: "))
-
             #Check for valid choice number
             if (choice<0 or choice>5):
                 print("Error!")
