@@ -41,4 +41,22 @@ while (loop):
         print("Enter 1 or 2!")
 
 json.dump(PFC_UserBackend.END(), open("YourCalendarSettings.txt", 'w'))
-print("Success")
+print("Your settings have been saved in the text file - YourCalendarSettings\nYou may re-use this setting again for future calendars or edit from this again by choosing to Load Calendar in the future")
+
+print("Enter\n1 : Initialise Calendar now\n2 : Exit")
+while True:
+    try:
+        selection = int(input("Enter: "))
+        if (selection<1 or selection>2):
+            print("You entered an invalid number!")
+        elif (selection==1):
+            exec(open("PFC_CalendarInitialiser.py").read())
+            break
+        else:
+            break
+
+    except ValueError:
+        print("Invalid input!")
+
+
+print("Exiting Application...")
