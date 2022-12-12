@@ -13,8 +13,9 @@ week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Spent":1, "Commen
 #Index 3 - left_headerTitles
 #Index 4 - right_headerTitles
 #Index 5 - week titles
+
 RETURN_DICT = { "YEAR": 2023,\
-                "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30},\
+                "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":31, "September":30, "October":31, "November":30, "December":31},\
                 "START_DAY": 0,\
                 "left_headerTitles": {"Inflow":1, "Income":1, "Comments":0},\
                 "right_headerTitles": {"Rent":1, "Subscriptions":1, "Comments":0}, \
@@ -32,6 +33,10 @@ def printRETURN_DICT():
 #Last function call
 def END():
     return RETURN_DICT
+
+
+def setRETURN_DICT(User_Dictionary):
+    RETURN_DICT = User_Dictionary
 
 def setYEAR():
     while True:
