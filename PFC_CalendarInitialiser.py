@@ -31,12 +31,19 @@ seperatorFill = PatternFill(fill_type="solid", start_color="AFB7C9")
 sheetMonthFill = PatternFill(fill_type="solid", start_color="81C4E5")
 sheetDaysFill = PatternFill(fill_type="solid", start_color="91D9D9")
 
-#Create empty excel file to start working
-CalendarFile = openpyxl.Workbook() 
-#Delete default sheet created 
-if ("Sheet1" in list(CalendarFile.get_sheet_names())):
-    CalendarFile.remove_sheet(CalendarFile.sheetnames("Sheet1"))
+#Loads a user excel file, if unable to find, creates a new empty excel file
+FileName = input("Enter your excel file name: ")
+try:
+    CalendarFile = openpyxl.load_workbook(FileName+".xlsx")
+except:
+    CalendarFile = openpyxl.Workbook() 
+    FileName = "YourCalendar"
 
+#Delete possible default sheets created
+if ("Sheet1" in CalendarFile.sheetnames):
+    del CalendarFile["Sheet1"]
+if ("Sheet" in CalendarFile.sheetnames):
+    del CalendarFile["Sheet1"]
 #Utility methods
 
 #Check if any dates exist in row
@@ -120,9 +127,7 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
                 break
 
     #Generate week title for each week
-    row = rowOffset_header+5
-    month = month[0:3]
-    CalendarFile_currentSheet = CalendarFile[month]
+    row = rowOffset_header+2
     while(checkRow(row)):
         for title in INPUT_DICT[list(INPUT_DICT)[5]].keys():
             CalendarFile_currentSheet["A"+str(row)]=title
@@ -156,13 +161,5 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
         CalendarFile_currentSheet.column_dimensions[get_column_letter(i)].width = 25
     CalendarFile_currentSheet.row_dimensions[rowOffset_header + 1].height = 20
 
-
-
-
-
-
-
-
-
 #Save and Exit script
-CalendarFile.save("YourCalendar.xlsx")
+CalendarFile.save(FileName+".xlsx")
