@@ -37,13 +37,12 @@ try:
     CalendarFile = openpyxl.load_workbook(FileName+".xlsx")
 except:
     CalendarFile = openpyxl.Workbook() 
-    FileName = "YourCalendar"
 
 #Delete possible default sheets created
 if ("Sheet1" in CalendarFile.sheetnames):
     del CalendarFile["Sheet1"]
 if ("Sheet" in CalendarFile.sheetnames):
-    del CalendarFile["Sheet1"]
+    del CalendarFile["Sheet"]
 #Utility methods
 
 #Check if any dates exist in row
@@ -163,3 +162,4 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
 
 #Save and Exit script
 CalendarFile.save(FileName+".xlsx")
+print(f"Calendar successfully created with filename: {FileName}!")
