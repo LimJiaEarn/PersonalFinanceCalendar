@@ -245,7 +245,7 @@ def reOrder(Dictionary, startIndex):
     if(startIndex!=0): #This if block only applies for week headers
         temp_dictionary[list(Dictionary)[0]] = Dictionary[list(Dictionary)[0]]
     print("Enter the new order from left to right by the current index")
-    print("Example 3 2 1 will reverse the order")
+    print("E.g: 3 2 1 will reverse the order")
     print("Note: Enter one index at a time, you will be prompted as may times as no. of indexes")
     for i in range(startIndex, length):
         while True:
@@ -254,7 +254,7 @@ def reOrder(Dictionary, startIndex):
             except ValueError:
                 print("Invalid index, it should be a number!")
 
-            if ((index<1) or (index > length)):
+            if ((index<1+startIndex) or (index > length)):
                 print("You entered an invalid index")
             elif (index in check):
                 print("You entered a repeated index")
