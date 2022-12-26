@@ -2,7 +2,7 @@
 #These are the default titles, there will be no change to this
 left_headerTitles_original = {"Inflow":1, "Income":1, "Comments":0}
 right_headerTitles_original = {"Rent":1, "Subscriptions":1, "Comments":0}
-week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Spent":1, "Comments":0}
+week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Comments":0}
 
 
 #This dictionary stores everything we need to initialise the calendar where its value will be initialised systematically by default or by user
@@ -19,7 +19,7 @@ RETURN_DICT = { "YEAR": 2023,\
                 "START_DAY": 0,\
                 "left_headerTitles": {"Inflow":1, "Income":1, "Comments":0},\
                 "right_headerTitles": {"Rent":1, "Subscriptions":1, "Comments":0}, \
-                "week_titles": {"Date":0, "Notes":0, "Reflections":0, "Spent":1, "Comments":0}   }
+                "week_titles": {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Comments":0}   }
 
 #For debugging
 def printRETURN_DICT():
@@ -210,7 +210,7 @@ def EditWeekTitles():
                                 else:
                                     temp_dict[newName]=RETURN_DICT[list(RETURN_DICT)[5]][oldName]
                             RETURN_DICT[list(RETURN_DICT)[5]] = temp_dict
-                            if (oldName=="Spent"):
+                            if (oldName=="Expenses"):
                                 RETURN_DICT[list(RETURN_DICT)[5]][newName] = 0
                             print(f"Successfully renamed from {oldName} to {newName}")
                             loop=False
