@@ -29,10 +29,19 @@ rowOffset_weeks = len(INPUT_DICT[list(INPUT_DICT)[5]]) +1
 #Columns set as default 2 to include some aesthetics
 columnOffset = 2
 
-#Pre-set styling colors (not user changing yet through code)
+#Pre-set cell styling and colors (not user changing yet through code)
 seperatorFill = PatternFill(fill_type="solid", start_color="AFB7C9")
 sheetMonthFill = PatternFill(fill_type="solid", start_color="81C4E5")
 sheetDaysFill = PatternFill(fill_type="solid", start_color="91D9D9")
+headerSideFill = PatternFill(fill_type="solid", start_color="20C220")
+leftheaderTitleFill = PatternFill(fill_type="solid", start_color="C5F7CA")
+rightheaderTitleFill = PatternFill(fill_type="solid", start_color="F3C9DE")
+weekSideFill = PatternFill(fill_type="solid", start_color="6BA4EF")
+weekTitleFill = [PatternFill(fill_type="solid", start_color="C3D2F9"), PatternFill(fill_type="solid", start_color="DEF2A0"),\
+                PatternFill(fill_type="solid", start_color="E0ADE9"), PatternFill(fill_type="solid", start_color="C1F6F5"),\
+                PatternFill(fill_type="solid", start_color="C0BFEF"), PatternFill(fill_type="solid", start_color="EED2B8")]
+
+thin_border = Border(left=Side(style='thin'), right=Side(style='thin'), top=Side(style='thin'), bottom=Side(style='thin'))
 
 #Loads a user excel file, if unable to find, creates a new empty excel file
 FileName = input("Enter your excel file name: ")
@@ -74,20 +83,24 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
     
     #Generate styling for Header
     #Absolute referencing is used for simplicity as certain cells will not be affected by user preference
-    CalendarFile_currentSheet.merge_cells("A1:J1")
-    CalendarFile_currentSheet["A1"] = month.upper() + "  "+ str(YEAR)
-    CalendarFile_currentSheet["A1"].font = Font(bold=True, size = 22)
-    CalendarFile_currentSheet["A1"].alignment = Alignment(horizontal='center', vertical='center')
-    CalendarFile_currentSheet["A1"].fill = sheetMonthFill
-    CalendarFile_currentSheet.merge_cells("A2:J2")
-    CalendarFile_currentSheet["A2"].fill = seperatorFill
-    CalendarFile_currentSheet.merge_cells("A"+str(rowOffset_header)+":"+"J"+str(rowOffset_header))
-    CalendarFile_currentSheet["A"+str(rowOffset_header)].fill = seperatorFill
+    cell = get_column_letter(columnOffset)+"1"
+    CalendarFile_currentSheet.merge_cells(cell+":J1")
+    CalendarFile_currentSheet[cell] = month.upper() + "  "+ str(YEAR)
+    CalendarFile_currentSheet[cell].font = Font(bold=True, size = 22)
+    CalendarFile_currentSheet[cell].alignment = Alignment(horizontal='center', vertical='center')
+    CalendarFile_currentSheet[cell].fill = sheetMonthFill
+    CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+"2:J2")
+    CalendarFile_currentSheet[get_column_letter(columnOffset)+"2"].fill = seperatorFill
+    CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(rowOffset_header)+":"+"J"+str(rowOffset_header))
+    CalendarFile_currentSheet[get_column_letter(columnOffset)+str(rowOffset_header)].fill = seperatorFill
     
     #Generating left header titles
     row=3
     for title, accounting in INPUT_DICT[list(INPUT_DICT)[3]].items():
-        CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)]=title
+        CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)] = title
+        CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)].fill = leftheaderTitleFill
+        for i in range(3):
+            CalendarFile_currentSheet[get_column_letter(columnOffset+i)+str(row)].border = thin_border
         CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
         #This prepares the accounting row
         if (accounting==1):
@@ -98,11 +111,18 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
     row=3
     for title, accounting in INPUT_DICT[list(INPUT_DICT)[4]].items():
         CalendarFile_currentSheet[get_column_letter(columnOffset+5)+str(row)]=title
+        CalendarFile_currentSheet[get_column_letter(columnOffset+5)+str(row)].fill = rightheaderTitleFill
+        for i in range(3):
+            CalendarFile_currentSheet[get_column_letter(columnOffset+5+i)+str(row)].border = thin_border
         CalendarFile_currentSheet[get_column_letter(columnOffset+5)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
         #This prepares the accounting row
         if (accounting==1):
             CalendarFile_currentSheet[get_column_letter(columnOffset+6)+str(row)]=1 #Change back to 0 eventually
         row+=1
+
+    CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+"3"+":"+get_column_letter(columnOffset)+str(rowOffset_header-1))
+    CalendarFile_currentSheet[get_column_letter(columnOffset)+"3"].fill = headerSideFill
+    CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset)].width = 2
 
     #Generating days of each week based on user preset preference
     row = rowOffset_header + 1
@@ -116,10 +136,9 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
         start_day = (start_day+1)%7
     
     #Seperator
-    CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset+1)+str(row+1)+":"+get_column_letter(columnOffset+8)+str(row+1))
-    CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row+1)].fill = seperatorFill
+    CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row+1)+":"+get_column_letter(columnOffset+8)+str(row+1))
+    CalendarFile_currentSheet[get_column_letter(columnOffset)+str(row+1)].fill = seperatorFill
     CalendarFile_currentSheet.row_dimensions[row+1].height = 20
-
 
     #Generate dates of each week with respective to its day as set above
     date=1
@@ -145,26 +164,30 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
 
     #Generate week title for each week
     row = rowOffset_header+3
+    weekSideFillIndex = 0
     while(checkRow(row)):
         #Aesthetic bookmarklike column
         CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row)+":"+get_column_letter(columnOffset)+str(row+len(INPUT_DICT[list(INPUT_DICT)[5]])-1))
-        CalendarFile_currentSheet[get_column_letter(columnOffset)+str(row)].fill = sheetDaysFill
+        CalendarFile_currentSheet[get_column_letter(columnOffset)+str(row)].fill = weekSideFill
         CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset)].width = 2
         #Slotting titles
         for title in INPUT_DICT[list(INPUT_DICT)[5]].keys():
             CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)]=title
-            #print(f'Debugging:\nmonth:{month}\nCell: {get_column_letter(columnOffset+1)+str(row)}\nTo Insert: {title}')
+            CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)].fill=weekTitleFill[weekSideFillIndex%6]
+            for k in range(8):
+                CalendarFile_currentSheet[get_column_letter(columnOffset+1+k)+str(row)].border = thin_border
             CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
             #This prepares the accounting row
             if (INPUT_DICT[list(INPUT_DICT)[5]][title]==1):
                 for i in range(2, 9):
                     CalendarFile_currentSheet[get_column_letter(columnOffset+i)+str(row)] = 1 #change back to 0 eventually
             row+=1
-        CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset+1)+str(row)+":"+get_column_letter(columnOffset+8)+str(row))
-        CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)].fill = seperatorFill
+        CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row)+":"+get_column_letter(columnOffset+8)+str(row))
+        CalendarFile_currentSheet[get_column_letter(columnOffset)+str(row)].fill = seperatorFill
         row+=1
+        weekSideFillIndex+=1
 
-    #Settng height for header portion
+    #Setting height for header portion
     CalendarFile_currentSheet.row_dimensions[1].height = 30
     for i in range(rowOffset_header):
         CalendarFile_currentSheet.row_dimensions[3+i].height = 20
@@ -173,10 +196,11 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
     row = rowOffset_header + 3
     while (CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)].value==INPUT_DICT[list(INPUT_DICT)[5]][list(INPUT_DICT[list(INPUT_DICT)[5]])[0]]): 
         for i in range(rowOffset_weeks):
-            CalendarFile_currentSheet.row_dimensions[row+i].height = 20
+            CalendarFile_currentSheet.row_dimensions[row+i].height = 35
         row+=rowOffset_weeks
     
-    #Setting width for 1st column 
+    #Setting width for side column 
+    CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset-1)].width = 8
     CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset+1)].width = 20
     
     #Setting width for days of week
