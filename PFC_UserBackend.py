@@ -1,6 +1,6 @@
 # Contains all python code for UI
 #These are the default titles, there will be no change to this
-left_headerTitles_original = {"Inflow":1, "Income":1, "Comments":0}
+left_headerTitles_original = {"Income":1, "Investments/Dividends":1, "Comments":0}
 right_headerTitles_original = {"Rent":1, "Subscriptions":1, "Comments":0}
 week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Comments":0}
 
@@ -13,13 +13,17 @@ week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Com
 #Index 3 - left_headerTitles
 #Index 4 - right_headerTitles
 #Index 5 - week titles
+#Index 6 - Overview Inflow 
+#Index 7 - Overview Expenses
 
 RETURN_DICT = { "YEAR": 2023,\
                 "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":31, "September":30, "October":31, "November":30, "December":31},\
                 "START_DAY": 0,\
-                "left_headerTitles": {"Inflow":1, "Income":1, "Comments":0},\
+                "left_headerTitles": {"Income":1, "Investments/Dividends":1, "Comments":0},\
                 "right_headerTitles": {"Rent":1, "Subscriptions":1, "Comments":0}, \
-                "week_titles": {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Comments":0}   }
+                "week_titles": {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Comments":0},\
+                "Overview_Inflow":["Income", "Miscellaneous"],
+                "Overview_Expenses":["Rent", "Miscellaneous"]}
 
 #For debugging
 def printRETURN_DICT():
