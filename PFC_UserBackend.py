@@ -2,8 +2,9 @@
 #These are the default titles, there will be no change to this
 left_headerTitles_original = {"Income":1, "Investments/Dividends":1, "Comments":0}
 right_headerTitles_original = {"Rent":1, "Subscriptions":1, "Comments":0}
-week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Comments":0}
-
+week_titles_original = {"Date":0, "Notes":0, "Inflow":0,"Inflow Category":0, "Expenses":1, "Expenses Category":0}
+Overview_Inflow_original = ["Income", "Others"]
+Overview_Outflow_original = ["Rent", "Services", "Others"]
 
 #This dictionary stores everything we need to initialise the calendar where its value will be initialised systematically by default or by user
 #It is initialised with default values
@@ -13,17 +14,34 @@ week_titles_original = {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Com
 #Index 3 - left_headerTitles
 #Index 4 - right_headerTitles
 #Index 5 - week titles
-#Index 6 - Overview Inflow 
-#Index 7 - Overview Expenses
+#Index 6 - Main Inflow Overview
+#Index 7 - Main Expenses Overview 
+#Index 8 - Inflow Breakdown
+#Index 9 - Outflow Breakdown
 
+
+#1 - Inflow
+#2 - Outflow
+
+# RETURN_DICT = { "YEAR": 2023,\
+#                 "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":31, "September":30, "October":31, "November":30, "December":31},\
+#                 "START_DAY": 0,\
+#                 "left_headerTitles": {"Income":1, "Investments/Dividends":1, "Comments":0},\
+#                 "right_headerTitles": {"Rent":1, "Subscriptions":1, "Comments":0}, \
+#                 "week_titles": {"Date":0, "Notes":0, "Inflow":0,"Inflow Category":0, "Miscellaneous":1, "Miscellaneous Category":0},\
+#                 "Overview_Inflow":["Income", "Others"],
+#                 "Overview_Expenses":["Rent", "Services", "Others"]}
+
+#For own testing
 RETURN_DICT = { "YEAR": 2023,\
                 "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":31, "September":30, "October":31, "November":30, "December":31},\
                 "START_DAY": 0,\
                 "left_headerTitles": {"Income":1, "Investments/Dividends":1, "Comments":0},\
-                "right_headerTitles": {"Rent":1, "Subscriptions":1, "Comments":0}, \
-                "week_titles": {"Date":0, "Notes":0, "Reflections":0, "Expenses":1, "Comments":0},\
-                "Overview_Inflow":["Income", "Miscellaneous"],
-                "Overview_Expenses":["Rent", "Miscellaneous"]}
+                "right_headerTitles": {"Rent":2, "Subscriptions":2, "Comments":0},\
+                "week_titles": {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0},\
+                "Overview_Inflow":["Income", "Miscellaneous"], \
+                "Overview_Expenses":["Rent", "Transport", "Meals", "Miscellaneous"] }
+
 
 #For debugging
 def printRETURN_DICT():
@@ -82,11 +100,9 @@ def updateRETURN_DICT(keyIndex, newValue):
 
 #This function is called by UserMainSelection1() to direct users to their respective functions
 def UserSelection1Direct(selection1):
-
     #Set Start Day of week
     if (selection1==1):
         setSTART_DAY()
-
     elif (selection1==2):
         EditHeaderTitles(3)
     
@@ -95,12 +111,11 @@ def UserSelection1Direct(selection1):
     #Edit Weekly Rows
     elif (selection1==4):
         EditWeekTitles()
-
     #This else statement should never execute
     else:
         print("Bug2!")
-
     return
+
 
 #This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection1Direct() to enter the right sub directories
 def UserMainSelection1():
@@ -366,4 +381,174 @@ def EditHeaderTitles(dictIndex):
 
         except ValueError:
             print("Error!")
+
+##========================================================================================================================#
+
+#This function is called by UserMainSelection2() to direct users to their respective functions
+def UserSelection2Direct(selection2):
+
+    if (selection2==1):
+        AccountingRowsPrinter(3)
+    elif (selection2==2):
+        AccountingRowsPrinter(4)
+    elif (selection2==3):
+        AccountingRowsPrinter(5)
+    #This else statement should never execute
+    else:
+        print("Bug3!")
+    return
+
+#This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection2Direct() to enter the right sub directories
+def UserMainSelection2():
+    print("Now you may choose rows for inflows and expenses to generate an accurate summary page")
+    while True:
+        print("Enter a selection below:")
+        print("1 : Edit Left header accounting rows")
+        print("2 : Edit Right header accounting rows")
+        print("3 : Edit weekly accounting rows")
+        print("0 : Proceed !")
+        loop=True
+        while (loop):
+            try:
+                selection2 = int(input("Selection: "))
+                if (selection2<0 or selection2 > 3):
+                    print("Invalid selection!")
+                else:
+                    if (selection2==0):
+
+                        return False
+                    else:
+                        UserSelection2Direct(selection2)
+                        loop=False
+            except ValueError:
+                print("Invalid selection! Use numbers")
+
+def AccountingRowsPrinter(dict_Index):
+    print("==========\nCurrent Accounting Rows for inflow: ")
+    m=0
+    for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+        if (RETURN_DICT[list(RETURN_DICT)[dict_Index]][title]==1):
+            m+=1
+            print(f"{m}) {title}")
+    if (m==0):
+        print("NIL")
+    m=0
+    print("==========\nCurrent Accounting Rows for expenses: ")
+    for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+        if (RETURN_DICT[list(RETURN_DICT)[dict_Index]][title]==2):
+            m+=1
+            print(f"{m}) {title}")
+    if (m==0):
+        print("NIL")
+    m=0
+    print("==========\nCurrent Rows not set: ")
+    for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+        if (RETURN_DICT[list(RETURN_DICT)[dict_Index]][title]==0):
+            m+=1
+            print(f"{m}) {title}")    
+    if (m==0):
+        print("NIL")
+    print("==========")
+
+def AccountingRowsEditor2(dict_Index, choice):
+    #Choice=1 -> Add row to inflow
+    #Choice=2 -> Add row to outflow
+    #Choice=3 -> Remove row from accounting
+    loop=True
+    while (loop):
+        title = input("Enter title name: ")
+        if (title not in INPUT_DICT[list(INPUT_DICT)[dict_Index]]):
+            print("Invalid title!")
+        else:
+            INPUT_DICT[list(INPUT_DICT)[dict_Index]][title] = choice%3
+            loop=False
+                
+    return
     
+def AccountingRowsEditor(dict_Index):
+    loop=True
+    while(loop):
+        AccountingRowsPrinter(dict_Index)
+        print("Enter a selection below")
+        print("1 : Add row to Inflow")
+        print("2 : Add row to Expenses")
+        print("3 : Exclude row from accounting")
+        print("0 : Exit")
+        try:
+                choice = int(input("Selection: "))
+                if (choice<0 or choice > 3):
+                    print("Invalid selection!")
+                else:
+                    if (choice==0):
+                        loop = False
+                    else:
+                        AccountingRowsEditor2(dict_Index, choice)
+                        print("Success!")
+        except ValueError:
+            print("Invalid selection! Use numbers")
+
+
+
+##========================================================================================================================#
+
+
+
+#This function is called by UserMainSelection2() to direct users to their respective functions
+def UserSelection3Direct(selection3):
+    #Set Start Day of week
+    if (selection3==1):
+        addInflowOverviewRows()
+    elif (selection3==2):
+        addExpensesOverviewRows()
+    
+    elif (selection3==3):
+        addInflowBreakdownRows()
+    #Edit Weekly Rows
+    elif (selection3==4):
+        addExpensesBreakdownRows()
+    #This else statement should never execute
+    else:
+        print("Bug4!")
+    return
+
+#This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection3Direct() to enter the right sub directories
+def UserMainSelection3():
+    print("Now you may choose to customise a yearly overview page\nNote: Overview is empty by default, Breakdown contains all accounting rows by default")
+    while True:
+        print("Enter a selection below:")
+        print("1 : Add Inflow Overview rows")
+        print("2 : Add Expenses Overview rows")
+        print("3 : Add Inflow breakdown rows")
+        print("4 : Add Expenses breakdown rowss")
+        print("0 : Proceed !")
+        loop=True
+        while (loop):
+            try:
+                selection3 = int(input("Selection: "))
+                if (selection3<0 or selection3 > 4):
+                    print("Invalid selection!")
+                else:
+                    if (selection3==0):
+
+                        return False
+                    else:
+                        UserSelection2Direct(selection3)
+                        loop=False
+            except ValueError:
+                print("Invalid selection! Use numbers")
+
+
+
+def addInflowOverviewRows():
+    print("TBC")
+
+def addExpensesOverviewRows():
+    print("TBC")
+
+
+def addInflowBreakdownRows():
+    print("TBC")
+
+
+def addExpensesBreakdownRows():
+    print("TBC")
