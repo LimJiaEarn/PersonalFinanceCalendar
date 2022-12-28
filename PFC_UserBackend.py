@@ -528,9 +528,7 @@ def UserSelection3Direct(selection3):
         print("Bug4!")
     return
 
-#If no more valid accounting rows can be added, let the user know
-def checkMaxRows():
-    print("To be done")
+
 
 
 #This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection3Direct() to enter the right sub directories
@@ -587,6 +585,18 @@ def checkAccounting(titleTC, acctVal):
                 return True
     return False
 
+#If no more valid accounting rows can be added, let the user know
+def checkMaxARows(dict_Index):
+    num=0
+    for di in range(3, 6):
+        for title in RETURN_DICT[list(RETURN_DICT)[di]]:
+            if (RETURN_DICT[list(RETURN_DICT)[di]][title]==(dict_Index%2)+1):
+                num+=1
+    if (num==len(RETURN_DICT[list(RETURN_DICT)[dict_Index]])):
+        return True
+    return False
+
+
 def OverviewRowsEditor2(dict_Index, choice, flowType): 
     #choice=1 -> Add
     #choice=2 -> Remove
@@ -629,16 +639,20 @@ def OverviewRowsEditor(dict_Index):
         print("0 : Exit")
         try:
             choice = int(input("Selection: "))
-            if (choice<0 or choice > 2):
+
+            if (choice==1 and checkMaxARows(dict_Index)):
+                if ((dict_Index%2)+1):
+                    print("You have added all possible Inflow rows")
+                else:
+                    print("You have added all possible Expense rows")
+                
+            elif (choice<0 or choice > 2):
                 print("Invalid selection!")
             else:
                 if (choice==0):
                     return
                 else:
-                    if (dict_Index==6 or dict_Index==8):
-                        OverviewRowsEditor2(dict_Index, choice, 1)
-                    else:
-                        OverviewRowsEditor2(dict_Index, choice, 2)
+                    OverviewRowsEditor2(dict_Index, choice, (dict_Index%2)+1)
                     print("Success!")
         except ValueError:
             print("Invalid selection! Use numbers")
