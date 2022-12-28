@@ -40,7 +40,10 @@ RETURN_DICT = { "YEAR": 2023,\
                 "right_headerTitles": {"Rent":2, "Subscriptions":2, "Comments":0},\
                 "week_titles": {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0},\
                 "Overview_Inflow":["Income", "Miscellaneous"], \
-                "Overview_Expenses":["Rent", "Transport", "Meals", "Miscellaneous"] }
+                "Overview_Expenses":["Rent", "Transport", "Meals", "Miscellaneous"],\
+                "Inflow_Breakdown":["Test111", "Test222"],\
+                "Expenses_Breakdown":["Test1111", "Test2222"],\
+              }
 
 
 #For debugging
@@ -231,7 +234,7 @@ def EditWeekTitles():
                             RETURN_DICT[list(RETURN_DICT)[5]] = temp_dict
                             if (oldName=="Expenses"):
                                 RETURN_DICT[list(RETURN_DICT)[5]][newName] = 0
-                            print(f"Successfully renamed from {oldName} to {newName}")
+                            print(f"Successfully renamed from -{oldName}- to -{newName}-")
                             loop=False
 
                     except ValueError:
@@ -357,7 +360,7 @@ def EditHeaderTitles(dictIndex):
                                 else:
                                     temp_dict[newName]=RETURN_DICT[list(RETURN_DICT)[dictIndex]][oldName]
                             RETURN_DICT[list(RETURN_DICT)[dictIndex]] = temp_dict
-                            print(f"Successfully renamed from {oldName} to {newName}")
+                            print(f"Successfully renamed from -{oldName}- to -{newName}-")
                             loop=False
                     except ValueError:
                         print("Invalid index, it should be a number!")
@@ -389,10 +392,13 @@ def UserSelection2Direct(selection2):
 
     if (selection2==1):
         AccountingRowsPrinter(3)
+        AccountingRowsEditor(3)
     elif (selection2==2):
         AccountingRowsPrinter(4)
+        AccountingRowsEditor(4)
     elif (selection2==3):
         AccountingRowsPrinter(5)
+        AccountingRowsEditor(5)
     #This else statement should never execute
     else:
         print("Bug3!")
@@ -424,17 +430,21 @@ def UserMainSelection2():
                 print("Invalid selection! Use numbers")
 
 def AccountingRowsPrinter(dict_Index):
-    print("==========\nCurrent Accounting Rows for inflow: ")
+    print("==========\nCurrent Accounting Rows for Inflow: ")
     m=0
     for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+        if (title=="Date"):
+            continue
         if (RETURN_DICT[list(RETURN_DICT)[dict_Index]][title]==1):
             m+=1
             print(f"{m}) {title}")
     if (m==0):
         print("NIL")
     m=0
-    print("==========\nCurrent Accounting Rows for expenses: ")
+    print("==========\nCurrent Accounting Rows for Expenses: ")
     for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+        if (title=="Date"):
+            continue
         if (RETURN_DICT[list(RETURN_DICT)[dict_Index]][title]==2):
             m+=1
             print(f"{m}) {title}")
@@ -443,6 +453,8 @@ def AccountingRowsPrinter(dict_Index):
     m=0
     print("==========\nCurrent Rows not set: ")
     for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+        if (title=="Date"):
+            continue
         if (RETURN_DICT[list(RETURN_DICT)[dict_Index]][title]==0):
             m+=1
             print(f"{m}) {title}")    
@@ -451,16 +463,13 @@ def AccountingRowsPrinter(dict_Index):
     print("==========")
 
 def AccountingRowsEditor2(dict_Index, choice):
-    #Choice=1 -> Add row to inflow
-    #Choice=2 -> Add row to outflow
-    #Choice=3 -> Remove row from accounting
     loop=True
     while (loop):
         title = input("Enter title name: ")
-        if (title not in INPUT_DICT[list(INPUT_DICT)[dict_Index]]):
+        if ((title not in RETURN_DICT[list(RETURN_DICT)[dict_Index]]) or (title=="Date")):
             print("Invalid title!")
         else:
-            INPUT_DICT[list(INPUT_DICT)[dict_Index]][title] = choice%3
+            RETURN_DICT[list(RETURN_DICT)[dict_Index]][title] = choice%3
             loop=False
                 
     return
@@ -491,21 +500,29 @@ def AccountingRowsEditor(dict_Index):
 
 ##========================================================================================================================#
 
+def BreakdownRowsInitialise():
+    for di in range(3, 6):
+        for title in RETURN_DICT[list(RETURN_DICT)[di]]:
+            if (RETURN_DICT[list(RETURN_DICT)[di]][title]==1):
+                RETURN_DICT[list(RETURN_DICT)[8]].append(title) 
+                
+            elif (RETURN_DICT[list(RETURN_DICT)[di]][title]==2):
+                RETURN_DICT[list(RETURN_DICT)[9]].append(title) 
 
+##========================================================================================================================#
 
-#This function is called by UserMainSelection2() to direct users to their respective functions
+#This function is called by UserMainSelection3() to direct users to their respective functions
 def UserSelection3Direct(selection3):
     #Set Start Day of week
     if (selection3==1):
-        addInflowOverviewRows()
+        OverviewRowsEditor(6)
     elif (selection3==2):
-        addExpensesOverviewRows()
-    
+        OverviewRowsEditor(7)
     elif (selection3==3):
-        addInflowBreakdownRows()
+         OverviewRowsEditor(8)
     #Edit Weekly Rows
     elif (selection3==4):
-        addExpensesBreakdownRows()
+         OverviewRowsEditor(9)
     #This else statement should never execute
     else:
         print("Bug4!")
@@ -516,39 +533,103 @@ def UserMainSelection3():
     print("Now you may choose to customise a yearly overview page\nNote: Overview is empty by default, Breakdown contains all accounting rows by default")
     while True:
         print("Enter a selection below:")
-        print("1 : Add Inflow Overview rows")
-        print("2 : Add Expenses Overview rows")
-        print("3 : Add Inflow breakdown rows")
-        print("4 : Add Expenses breakdown rowss")
+        print("1 : Edit Inflow Overview rows") #index 6
+        print("2 : Edit Expenses Overview rows") #index 7
+        print("3 : Edit Inflow breakdown rows") #index 8
+        print("4 : Edit Expenses breakdown rows") #index 9
+        print("5 : Display current Inflow and Expenses row titles")
         print("0 : Proceed !")
         loop=True
         while (loop):
             try:
                 selection3 = int(input("Selection: "))
-                if (selection3<0 or selection3 > 4):
+                if (selection3<0 or selection3 > 5):
                     print("Invalid selection!")
                 else:
                     if (selection3==0):
-
                         return False
+                    elif (selection3==5):
+                        InflowOutflowRowsPrinter(1) #prints all inflow row
+                        InflowOutflowRowsPrinter(2) #prints all expenses row
                     else:
-                        UserSelection2Direct(selection3)
+                        UserSelection3Direct(selection3)
                         loop=False
             except ValueError:
                 print("Invalid selection! Use numbers")
 
+def InflowOutflowRowsPrinter(flowType):
+    if (flowType==1):
+        print("==========\nList of rows for Inflow: ")
+    else:
+        print("==========\nList of rows for Expenses: ")
+    m=0
+    for di in range(3, 6):
+        for title in RETURN_DICT[list(RETURN_DICT)[di]]:
+            if (RETURN_DICT[list(RETURN_DICT)[di]][title]==flowType):
 
+                m+=1
+                print(f"{m}) {title}")
+    if (m==0):
+        print("NIL")
+    print("==========")
 
-def addInflowOverviewRows():
-    print("TBC")
+def checkAccounting(titleTC, acctVal):
+    for di in range(3, 6):
+        for title in RETURN_DICT[list(RETURN_DICT)[di]]:
+            
+            if (title==titleTC and RETURN_DICT[list(RETURN_DICT)[di]][titleTC]==acctVal):
+                return True
+    return False
 
-def addExpensesOverviewRows():
-    print("TBC")
+def OverviewRowsEditor2(dict_Index, choice, flowType): 
+    #choice=1 -> Add
+    #choice=2 -> Remove
 
+    loop=True
+    while (loop):
+        title = input("Enter title name: ")
+        if (not(checkAccounting(title, flowType))):
+            print("Invalid title!")
+        elif (title in RETURN_DICT[list(RETURN_DICT)[dict_Index]] and choice==1):
+            print("Repeated title!")
+        elif (title not in RETURN_DICT[list(RETURN_DICT)[dict_Index]] and choice==2):
+            print("Title is not in list!")
+        else:
+            if (choice==1):
+                RETURN_DICT[list(RETURN_DICT)[dict_Index]].append(title) 
+                loop=False     
+            else:
+                RETURN_DICT[list(RETURN_DICT)[dict_Index]].remove(title)
+                loop=False
+    return
+    
+def OverviewRowsEditor(dict_Index):
+    loop=True
+    while(loop):
+        print("Current titles:")
+        m=0
+        for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+            m+=1
+            print(f"{m}) {title}")
+        if (m==0):                
+            print("NIL")
 
-def addInflowBreakdownRows():
-    print("TBC")
-
-
-def addExpensesBreakdownRows():
-    print("TBC")
+        print("Enter a selection below")
+        print("1 : Add row")
+        print("2 : Remove row")
+        print("0 : Exit")
+        try:
+            choice = int(input("Selection: "))
+            if (choice<0 or choice > 2):
+                print("Invalid selection!")
+            else:
+                if (choice==0):
+                    return
+                else:
+                    if (dict_Index==6 or dict_Index==8):
+                        OverviewRowsEditor2(dict_Index, choice, 1)
+                    else:
+                        OverviewRowsEditor2(dict_Index, choice, 2)
+                    print("Success!")
+        except ValueError:
+            print("Invalid selection! Use numbers")
