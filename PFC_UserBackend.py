@@ -40,9 +40,9 @@ RETURN_DICT = { "YEAR": 2023,\
                 "right_headerTitles": {"Rent":2, "Subscriptions":2, "Comments":0},\
                 "week_titles": {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0},\
                 "Overview_Inflow":["Income", "Miscellaneous"], \
-                "Overview_Expenses":["Rent", "Transport", "Meals", "Miscellaneous"],\
-                "Inflow_Breakdown":["Test111", "Test222"],\
-                "Expenses_Breakdown":["Test1111", "Test2222"],\
+                "Overview_Expenses":["Rent", "Miscellaneous"],\
+                "Inflow_Breakdown":[],\
+                "Expenses_Breakdown":[],\
               }
 
 
@@ -528,6 +528,11 @@ def UserSelection3Direct(selection3):
         print("Bug4!")
     return
 
+#If no more valid accounting rows can be added, let the user know
+def checkMaxRows():
+    print("To be done")
+
+
 #This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection3Direct() to enter the right sub directories
 def UserMainSelection3():
     print("Now you may choose to customise a yearly overview page\nNote: Overview is empty by default, Breakdown contains all accounting rows by default")
@@ -551,6 +556,7 @@ def UserMainSelection3():
                     elif (selection3==5):
                         InflowOutflowRowsPrinter(1) #prints all inflow row
                         InflowOutflowRowsPrinter(2) #prints all expenses row
+                        loop=False
                     else:
                         UserSelection3Direct(selection3)
                         loop=False
@@ -590,10 +596,13 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
         title = input("Enter title name: ")
         if (not(checkAccounting(title, flowType))):
             print("Invalid title!")
+            loop=False
         elif (title in RETURN_DICT[list(RETURN_DICT)[dict_Index]] and choice==1):
             print("Repeated title!")
+            loop=False
         elif (title not in RETURN_DICT[list(RETURN_DICT)[dict_Index]] and choice==2):
             print("Title is not in list!")
+            loop=False
         else:
             if (choice==1):
                 RETURN_DICT[list(RETURN_DICT)[dict_Index]].append(title) 
