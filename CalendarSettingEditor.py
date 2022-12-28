@@ -1,7 +1,7 @@
 import PFC_UserBackend, json
 
 
-print("Welcome!\nEnter\n1 : Customise Calendar\n2 : Load Calendar (2nd time users)")
+print("Welcome!\nEnter\n1 : Customise Calendar from default\n2 : Load previous Calendar settings (2nd time users)")
 loop=True
 while (loop):
     try:
@@ -13,8 +13,16 @@ while (loop):
         elif (selection==1):
             print("Before we initialise your calendar, you may choose to customise certain components of your calendar")
             if (PFC_UserBackend.setYEAR()):
-                while (PFC_UserBackend.UserMainSelection1()):
+                while (PFC_UserBackend.UserMainSelection1()): #Sets monthly page
                     continue
+                while (PFC_UserBackend.UserMainSelection2()): #Sets accounting rows 
+                    continue  
+                PFC_UserBackend.BreakdownRowsInitialise() #Initialise breakdown rows for overview page
+                while (PFC_UserBackend.UserMainSelection3()): #Sets year overview page
+                    continue 
+
+
+
             loop=False
         
         else:
@@ -39,6 +47,13 @@ while (loop):
 
     except ValueError:
         print("Enter 1 or 2!")
+
+
+
+
+
+
+
 
 json.dump(PFC_UserBackend.END(), open("YourCalendarSettings.txt", 'w'))
 print("Your settings have been saved in the text file - YourCalendarSettings\nYou may re-use this setting again for future calendars or edit from this again by choosing to Load Calendar in the future")
