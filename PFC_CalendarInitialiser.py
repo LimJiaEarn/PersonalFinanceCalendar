@@ -13,15 +13,16 @@ INPUT_DICT = json.load(open("YourCalendarSettings.txt"))
 YEAR = INPUT_DICT[list(INPUT_DICT)[0]]
 startDayOfMonth = calendar.day_name[datetime.datetime.strptime('01 01 '+str(YEAR), '%d %m %Y').weekday() ]
 startDayOfMonth_index = daysOfWeek.index(startDayOfMonth) #initially set to start day of jan(start of new year), re-used for subsequent months
-#INPUT_DICT Index List
 #Index 0 - YEAR
 #Index 1 - CalendarDaysAndMonths
 #Index 2 - START_DAY -> 0 is Monday, 6 is Sunday
 #Index 3 - left_headerTitles
 #Index 4 - right_headerTitles
 #Index 5 - week titles
-#Index 6 - Overview Inflow
-#Index 7 - Overview Expenses
+#Index 6 - Main Inflow Overview
+#Index 7 - Main Expenses Overview 
+#Index 8 - Inflow Breakdown
+#Index 9 - Outflow Breakdown
 
 #Rows needed to offset before the first row of main data, absolute +3 because of seperator cells
 rowOffset_header = max(len(INPUT_DICT[list(INPUT_DICT)[3]]), len(INPUT_DICT[list(INPUT_DICT)[4]])) +3
@@ -179,6 +180,10 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
             if (INPUT_DICT[list(INPUT_DICT)[5]][title]==1):
                 for i in range(2, 9):
                     CalendarFile_currentSheet[get_column_letter(columnOffset+i)+str(row)] = 1 #change back to 0 eventually
+            if (INPUT_DICT[list(INPUT_DICT)[5]][title]==2):
+                for i in range(2, 9):
+                    CalendarFile_currentSheet[get_column_letter(columnOffset+i)+str(row)] = 1 #change back to 0 eventually
+            
             row+=1
         CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row)+":"+get_column_letter(columnOffset+8)+str(row))
         CalendarFile_currentSheet[get_column_letter(columnOffset)+str(row)].fill = seperatorFill
@@ -214,13 +219,16 @@ rowOffset_OverviewBody = 2+len(INPUT_DICT[list(INPUT_DICT)[6]])+len(INPUT_DICT[l
 columnOffset_Overview = 2
 
 CalendarFile_currentSheet = CalendarFile[str(YEAR)+" Overview"]
-CalendarFile_currentSheet.merge_cells("B1:J1")
+CalendarFile_currentSheet.merge_cells("B1:F1")
 CalendarFile_currentSheet["B1"] = str(YEAR)+" Overview"
+for i in range(2, 16):
+    CalendarFile_currentSheet[get_column_letter(i)+"1"].border = Border(bottom=Side(style='thick'))
 CalendarFile_currentSheet["B1"].font = Font(bold=True, size = 22)
 CalendarFile_currentSheet["B1"].alignment = Alignment(horizontal='center', vertical='center')
 CalendarFile_currentSheet["B1"].fill = sheetMonthFill
-CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset_Overview+1)].width = 20
-CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset_Overview)].width = 10
+CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset_Overview+1)].width = 25
+CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset_Overview)].width = 3
+CalendarFile_currentSheet.column_dimensions[get_column_letter(1)].width = 5
 
 
 #Generating months
@@ -241,7 +249,11 @@ for title in INPUT_DICT[list(INPUT_DICT)[6]]:
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
-
+for m2 in range(12):
+    column = get_column_letter(columnOffset_Overview+2+m2)
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)] = "=SUM("+column+str(row-len(INPUT_DICT[list(INPUT_DICT)[6]]))+":"+column+str(row-1)+")"
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].fill = summaryTotalRowFill
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].alignment = Alignment(horizontal='right', vertical='center')
 
 #Overview Outflow
 row+=2
@@ -254,8 +266,11 @@ for title in INPUT_DICT[list(INPUT_DICT)[7]]:
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
-
-
+for m2 in range(12):
+    column = get_column_letter(columnOffset_Overview+2+m2)
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)] = "=SUM("+column+str(row-len(INPUT_DICT[list(INPUT_DICT)[7]]))+":"+column+str(row-1)+")"
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].fill = summaryTotalRowFill
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].alignment = Alignment(horizontal='right', vertical='center')
 
 
 #SUMMARY
