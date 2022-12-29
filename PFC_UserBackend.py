@@ -19,7 +19,7 @@ Overview_Outflow_original = ["Rent", "Services", "Others"]
 #Index 8 - Inflow Breakdown
 #Index 9 - Outflow Breakdown
 
-
+#Title, flowType, 1-header / 2-week, summation titles**
 #1 - Inflow
 #2 - Outflow
 
@@ -39,8 +39,8 @@ RETURN_DICT = { "YEAR": 2023,\
                 "left_headerTitles": {"Income":1, "Investments/Dividends":1, "Comments":0},\
                 "right_headerTitles": {"Rent":2, "Subscriptions":2, "Comments":0},\
                 "week_titles": {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0},\
-                "Overview_Inflow":["Income", "Miscellaneous"], \
-                "Overview_Expenses":["Rent", "Miscellaneous"],\
+                "Overview_Inflow":[("Income", 1, 1, []), ("Miscellaneous", 1, 1, [])], \
+                "Overview_Expenses":[("Rent", 2, 2, []), ("Miscellaneous", 2, 2, [])],\
                 "Inflow_Breakdown":[],\
                 "Expenses_Breakdown":[],\
               }
@@ -404,7 +404,8 @@ def UserSelection2Direct(selection2):
         print("Bug3!")
     return
 
-#This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection2Direct() to enter the right sub directories
+#This function will keep looping the menu till user enters 0 to proceed
+# it calls UserSelection2Direct() to enter the right sub directories
 def UserMainSelection2():
     print("Now you may choose rows for inflows and expenses to generate an accurate summary page")
     while True:
@@ -501,13 +502,20 @@ def AccountingRowsEditor(dict_Index):
 ##========================================================================================================================#
 
 def BreakdownRowsInitialise():
-    for di in range(3, 6):
+    for di in range(3, 5):
         for title in RETURN_DICT[list(RETURN_DICT)[di]]:
             if (RETURN_DICT[list(RETURN_DICT)[di]][title]==1):
-                RETURN_DICT[list(RETURN_DICT)[8]].append(title) 
+                RETURN_DICT[list(RETURN_DICT)[8]].append([title, 1, 1, []])
                 
             elif (RETURN_DICT[list(RETURN_DICT)[di]][title]==2):
-                RETURN_DICT[list(RETURN_DICT)[9]].append(title) 
+                RETURN_DICT[list(RETURN_DICT)[9]].append([title, 2, 1, []]) 
+    for di in range(5, 6):
+        for title in RETURN_DICT[list(RETURN_DICT)[di]]:
+            if (RETURN_DICT[list(RETURN_DICT)[di]][title]==1):
+                RETURN_DICT[list(RETURN_DICT)[8]].append([title, 1, 2, []])
+                
+            elif (RETURN_DICT[list(RETURN_DICT)[di]][title]==2):
+                RETURN_DICT[list(RETURN_DICT)[9]].append([title, 2, 2, []]) 
 
 ##========================================================================================================================#
 
@@ -528,10 +536,8 @@ def UserSelection3Direct(selection3):
         print("Bug4!")
     return
 
-
-
-
 #This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection3Direct() to enter the right sub directories
+#
 def UserMainSelection3():
     print("Now you may choose to customise a yearly overview page\nNote: Overview is empty by default, Breakdown contains all accounting rows by default")
     while True:
@@ -561,6 +567,7 @@ def UserMainSelection3():
             except ValueError:
                 print("Invalid selection! Use numbers")
 
+#
 def InflowOutflowRowsPrinter(flowType):
     if (flowType==1):
         print("==========\nList of rows for Inflow: ")
@@ -577,6 +584,7 @@ def InflowOutflowRowsPrinter(flowType):
         print("NIL")
     print("==========")
 
+#
 def checkAccounting(titleTC, acctVal):
     for di in range(3, 6):
         for title in RETURN_DICT[list(RETURN_DICT)[di]]:
@@ -586,6 +594,7 @@ def checkAccounting(titleTC, acctVal):
     return False
 
 #If no more valid accounting rows can be added, let the user know
+#
 def checkMaxARows(dict_Index):
     num=0
     for di in range(3, 6):
@@ -596,32 +605,80 @@ def checkMaxARows(dict_Index):
         return True
     return False
 
+def checkHeaderWeekbyUser(title, hw):
 
+    #Checking for user
+    if (hw==1):
+        for di in range(3, 5):
+            if title in RETURN_DICT[list(RETURN_DICT)[di]]:
+                return hw
+        print("The title you chose is not from the header list!")
+        return 0
+
+    else:
+        if title in RETURN_DICT[list(RETURN_DICT)[5]]:
+            return hw
+        print("The title you chose is not from the week list!")
+        return 0
+    
+#
 def OverviewRowsEditor2(dict_Index, choice, flowType): 
     #choice=1 -> Add
     #choice=2 -> Remove
-
-    loop=True
-    while (loop):
-        title = input("Enter title name: ")
-        if (not(checkAccounting(title, flowType))):
-            print("Invalid title!")
-            loop=False
-        elif (title in RETURN_DICT[list(RETURN_DICT)[dict_Index]] and choice==1):
-            print("Repeated title!")
-            loop=False
-        elif (title not in RETURN_DICT[list(RETURN_DICT)[dict_Index]] and choice==2):
-            print("Title is not in list!")
-            loop=False
-        else:
-            if (choice==1):
-                RETURN_DICT[list(RETURN_DICT)[dict_Index]].append(title) 
-                loop=False     
-            else:
-                RETURN_DICT[list(RETURN_DICT)[dict_Index]].remove(title)
+    if (choice<3):
+        loop=True
+        while (loop):
+            title = input("Enter title name: ")
+            if (not(checkAccounting(title, flowType))):
+                print("Invalid title!")
                 loop=False
+            else:
+                if (choice==1):
+
+                    doubleC=1
+                    for tup in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+                        if (tup[0]==title):
+                            print("Repeated title! Title is already in list")
+                            loop=False
+                            doubleC=0
+                    if (doubleC==1):
+                        loop2=True
+                        while(loop2):
+                            try:    
+                                hw = int(input("Enter 1 if your title is from headers and 2 if your title is from week: "))
+                                if (hw==1 or hw==2):
+                                    if(checkHeaderWeekbyUser(title, hw)!=0): #Checks for correctness
+                                        RETURN_DICT[list(RETURN_DICT)[dict_Index]].append([title, (dict_Index%2)+1, hw, []])
+                                        loop=False
+                                        loop2=False
+                                        print("Successfully added!")
+                                    else:
+                                        loop2=False
+                                else:
+                                    print("You entered an invalid number!")
+                            except ValueError:
+                                print("You entered an invalid number!")
+
+                         
+                else:
+                    ch=0
+                    for tup in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
+                        if (tup[0]==title):
+                            RETURN_DICT[list(RETURN_DICT)[dict_Index]].remove(tup)
+                            print("Successfully removed!")
+                            loop=False
+                            ch=1
+                    if (ch==0):
+                        print("Unable to find title you requested to remove")
+                        loop=False
+
+    else:
+        print("TO BE DONE PERSONAL SUMMATION ROWS")
+
+
     return
     
+
 def OverviewRowsEditor(dict_Index):
     loop=True
     while(loop):
@@ -629,13 +686,14 @@ def OverviewRowsEditor(dict_Index):
         m=0
         for title in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
             m+=1
-            print(f"{m}) {title}")
+            print(f"{m}) {title[0]}")
         if (m==0):                
             print("NIL")
 
         print("Enter a selection below")
         print("1 : Add row")
         print("2 : Remove row")
+        print("3 : Add Summation row *")
         print("0 : Exit")
         try:
             choice = int(input("Selection: "))
@@ -653,6 +711,5 @@ def OverviewRowsEditor(dict_Index):
                     return
                 else:
                     OverviewRowsEditor2(dict_Index, choice, (dict_Index%2)+1)
-                    print("Success!")
         except ValueError:
             print("Invalid selection! Use numbers")
