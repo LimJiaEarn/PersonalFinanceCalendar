@@ -23,14 +23,7 @@ Overview_Outflow_original = ["Rent", "Services", "Others"]
 #1 - Inflow
 #2 - Outflow
 
-# RETURN_DICT = { "YEAR": 2023,\
-#                 "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":31, "September":30, "October":31, "November":30, "December":31},\
-#                 "START_DAY": 0,\
-#                 "left_headerTitles": {"Income":1, "Investments/Dividends":1, "Comments":0},\
-#                 "right_headerTitles": {"Rent":1, "Subscriptions":1, "Comments":0}, \
-#                 "week_titles": {"Date":0, "Notes":0, "Inflow":0,"Inflow Category":0, "Miscellaneous":1, "Miscellaneous Category":0},\
-#                 "Overview_Inflow":["Income", "Others"],
-#                 "Overview_Expenses":["Rent", "Services", "Others"]}
+
 
 #For own testing
 RETURN_DICT = { "YEAR": 2023,\
@@ -40,7 +33,7 @@ RETURN_DICT = { "YEAR": 2023,\
                 "right_headerTitles": {"Rent":2, "Subscriptions":2, "Comments":0},\
                 "week_titles": {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0},\
                 "Overview_Inflow":[("Income", 1, 1, []), ("Miscellaneous", 1, 1, [])], \
-                "Overview_Expenses":[("Rent", 2, 2, []), ("Miscellaneous", 2, 2, [])],\
+                "Overview_Expenses":[("Rent", 2, 1, []), ("Miscellaneous", 2, 2, [])],\
                 "Inflow_Breakdown":[],\
                 "Expenses_Breakdown":[],\
               }
@@ -502,14 +495,14 @@ def AccountingRowsEditor(dict_Index):
 ##========================================================================================================================#
 
 def BreakdownRowsInitialise():
-    for di in range(3, 5):
+    for di in range(3, 5): #Headers
         for title in RETURN_DICT[list(RETURN_DICT)[di]]:
             if (RETURN_DICT[list(RETURN_DICT)[di]][title]==1):
                 RETURN_DICT[list(RETURN_DICT)[8]].append([title, 1, 1, []])
                 
             elif (RETURN_DICT[list(RETURN_DICT)[di]][title]==2):
                 RETURN_DICT[list(RETURN_DICT)[9]].append([title, 2, 1, []]) 
-    for di in range(5, 6):
+    for di in range(5, 6): #Weeks
         for title in RETURN_DICT[list(RETURN_DICT)[di]]:
             if (RETURN_DICT[list(RETURN_DICT)[di]][title]==1):
                 RETURN_DICT[list(RETURN_DICT)[8]].append([title, 1, 2, []])
@@ -621,7 +614,7 @@ def checkHeaderWeekbyUser(title, hw):
         print("The title you chose is not from the week list!")
         return 0
     
-#
+
 def OverviewRowsEditor2(dict_Index, choice, flowType): 
     #choice=1 -> Add
     #choice=2 -> Remove
@@ -677,7 +670,42 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
 
 
     return
+
+def reOrder2(reOrderList, startIndex):
+    temp_list=[]
+    check = [] #To check and ensure user do not enter repeated indexes
     
+    length = len(reOrderList)
+    for i in range(startIndex, length):
+        print(f"Index {i+1}: {reOrderList[i][0]}")
+    print("Enter the new order from left to right by the current index")
+    print("E.g: 3 2 1 will reverse the order")
+    print("Note: Enter one index at a time, you will be prompted as may times as no. of indexes")
+
+    for i in range(startIndex, length):
+        while True:
+            try:
+                index=int(input("New Index: "))
+            except ValueError:
+                print("Invalid index, it should be a number!")
+
+            if ((index<1+startIndex) or (index > length)):
+                print("You entered an invalid index")
+            elif (index in check):
+                print("You entered a repeated index")
+            else:
+                check.append(index)
+                index-=1 
+                break   
+        temp_list.append(reOrderList[index])
+    reOrderList.clear()
+    reOrderList = temp_list
+    print("Successfully re-ordered!")
+    
+    return reOrderList
+
+
+
 
 def OverviewRowsEditor(dict_Index):
     loop=True
@@ -693,7 +721,8 @@ def OverviewRowsEditor(dict_Index):
         print("Enter a selection below")
         print("1 : Add row")
         print("2 : Remove row")
-        print("3 : Add Summation row *")
+        print("3 : Re-order row")
+        print("4 : Add Summation row *")
         print("0 : Exit")
         try:
             choice = int(input("Selection: "))
@@ -704,11 +733,13 @@ def OverviewRowsEditor(dict_Index):
                 else:
                     print("You have added all possible Expense rows")
                 
-            elif (choice<0 or choice > 2):
+            elif (choice<0 or choice > 4):
                 print("Invalid selection!")
             else:
                 if (choice==0):
                     return
+                elif (choice==3):  
+                    RETURN_DICT[list(RETURN_DICT)[dict_Index]] = reOrder2(RETURN_DICT[list(RETURN_DICT)[dict_Index]], 0)
                 else:
                     OverviewRowsEditor2(dict_Index, choice, (dict_Index%2)+1)
         except ValueError:
