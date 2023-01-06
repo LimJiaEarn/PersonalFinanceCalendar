@@ -63,7 +63,7 @@ if ("Sheet1" in CalendarFile.sheetnames):
 if ("Sheet" in CalendarFile.sheetnames):
     del CalendarFile["Sheet"]
 
-#Utility function to check if any dates exist in row
+#Utility function to check if any value exist in row
 def checkRow(row):
     for i in range(2, 9):
         if (CalendarFile_currentSheet[get_column_letter(columnOffset+i)+str(row)].value):
@@ -143,14 +143,17 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
     #Generate dates of each week with respective to its day as set above
     date=1
     for row in range(rowOffset_header+3, rowOffset_header + rowOffset_weeks*6, rowOffset_weeks):
+        
         for column in range(2, 9):              
             char = get_column_letter(columnOffset+column)
+            
             #Ensure first date of month is inserted in the correct starting day
             if ( (date==1) and (CalendarFile_currentSheet[char+str(rowOffset_header+1)].value != startDayOfMonth) ):
                 continue
             #Continuos insertion
             elif (date<=INPUT_DICT[list(INPUT_DICT)[1]][month]):   
                 CalendarFile_currentSheet[char+str(row)] = date
+                CalendarFile_currentSheet[char+str(row)].font = Font(bold=True)
                 CalendarFile_currentSheet[char+str(row)].alignment = Alignment(horizontal='center', vertical='center')
                 date+=1
             #When all dates of the month has been filled
@@ -170,9 +173,11 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
         CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row)+":"+get_column_letter(columnOffset)+str(row+len(INPUT_DICT[list(INPUT_DICT)[5]])-1))
         CalendarFile_currentSheet[get_column_letter(columnOffset)+str(row)].fill = weekSideFill
         CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset)].width = 2
+        
         #Slotting titles
         for title in INPUT_DICT[list(INPUT_DICT)[5]].keys():
             CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)]=title
+            CalendarFile_currentSheet.row_dimensions[row].height = 18
             CalendarFile_currentSheet[get_column_letter(columnOffset+1)+str(row)].fill=weekTitleFill[weekSideFillIndex%6]
             for k in range(8):
                 CalendarFile_currentSheet[get_column_letter(columnOffset+1+k)+str(row)].border = thin_border
@@ -186,6 +191,7 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
                     CalendarFile_currentSheet[get_column_letter(columnOffset+i)+str(row)] = 1 #change back to 0 eventually
             
             row+=1
+        CalendarFile_currentSheet.row_dimensions[row-len(INPUT_DICT[list(INPUT_DICT)[5]])].height = 28
         CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row)+":"+get_column_letter(columnOffset+8)+str(row))
         CalendarFile_currentSheet[get_column_letter(columnOffset)+str(row)].fill = seperatorFill
         row+=1
@@ -211,6 +217,28 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
     for i in range(2, 9):
         CalendarFile_currentSheet.column_dimensions[get_column_letter(columnOffset+i)].width = 25
     CalendarFile_currentSheet.row_dimensions[rowOffset_header + 1].height = 20
+
+
+def findAccCellinHeader(title):
+    #Left header titles
+    if (title in INPUT_DICT[list(INPUT_DICT)[3]]): 
+        return get_column_letter(1+columnOffset+1)+str(3+list(INPUT_DICT[list(INPUT_DICT)[3]]).index(title))
+    #Right header titles
+    elif (title in INPUT_DICT[list(INPUT_DICT)[4]]): 
+        return get_column_letter(1+columnOffset+5)+str(3+list(INPUT_DICT[list(INPUT_DICT)[4]]).index(title))
+    
+    return -1
+    
+
+#Returns first row in occurs as an integer
+def findAccCellinWeek(title):
+    row=rowOffset_header+3
+    if (title in INPUT_DICT[list(INPUT_DICT)[5]]): 
+        # get_column_letter(columnOffset+1)+str(row)
+        return row+list(INPUT_DICT[list(INPUT_DICT)[5]]).index(title)
+    
+    return -1
+
 
 #OVERVIEW
 
@@ -246,10 +274,29 @@ CalendarFile_currentSheet[get_column_letter(columnOffset_Overview)+str(row-1)].f
 for tup in INPUT_DICT[list(INPUT_DICT)[6]]:
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = tup[0]
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
-    row+=1
-    #Check if title is a header or week title
+    if (len(tup[3])==0):
 
-    ##TO BE DONE
+        if (tup[2]==1): #Header type
+            cell = findAccCellinHeader(tup[0])
+            if (cell!=-1):
+                for i in range(12):
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = "=SUM("+str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])+'!'+str(cell)+')'
+
+        elif (tup[2]==2): #Week type
+            for i in range(12):
+                cellRow = findAccCellinWeek(tup[0])
+                if (cellRow!=-1):
+                    cells="=SUM("
+                    while True:
+                        month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+                        cells+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                        cellRow+=rowOffset_weeks
+                        if (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value!=tup[0]):
+                            break
+                    cells=cells[:-1]+')'
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells   
+    row+=1
+
 
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
@@ -267,6 +314,26 @@ CalendarFile_currentSheet[get_column_letter(columnOffset_Overview)+str(row)].fil
 for tup in INPUT_DICT[list(INPUT_DICT)[7]]:
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = tup[0]
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
+    if (len(tup[3])==0):
+        if (tup[2]==1): #Header type
+            cell = findAccCellinHeader(tup[0])
+            if (cell!=-1):
+                for i in range(12):
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = "=SUM("+str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])+'!'+str(cell)+')'
+
+        elif (tup[2]==2): #Week type
+            for i in range(12):
+                cellRow = findAccCellinWeek(tup[0])
+                if (cellRow!=-1):
+                    cells="=SUM("
+                    while True:
+                        month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+                        cells+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                        cellRow+=rowOffset_weeks
+                        if (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value!=tup[0]):
+                            break
+                    cells=cells[:-1]+')'
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells   
     row+=1
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
@@ -276,6 +343,8 @@ for m2 in range(12):
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)] = "=SUM("+column+str(row-len(INPUT_DICT[list(INPUT_DICT)[7]]))+":"+column+str(row-1)+")"
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].fill = summaryTotalRowFill
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].alignment = Alignment(horizontal='right', vertical='center')
+
+
 
 
 #SUMMARY
@@ -298,6 +367,29 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
 for tup in INPUT_DICT[list(INPUT_DICT)[8]]:
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = tup[0]
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
+    if (len(tup[3])==0):
+        if (tup[2]==1): #Header type
+            cell = findAccCellinHeader(tup[0])
+            if (cell!=-1):
+                for i in range(12):
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = "=SUM("+str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])+'!'+str(cell)+')'
+
+        elif (tup[2]==2): #Week type
+            for i in range(12):
+                cellRow = findAccCellinWeek(tup[0])
+                if (cellRow!=-1):
+                    cells="=SUM("
+                    while True:
+                        month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+                        cells+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                        cellRow+=rowOffset_weeks
+                        if (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value!=tup[0]):
+                            break
+
+                    cells=cells[:-1]+')'
+
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells
+
     row+=1
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
@@ -325,6 +417,27 @@ row+=1
 for tup in INPUT_DICT[list(INPUT_DICT)[9]]:
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = tup[0]
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
+    if (len(tup[3])==0):
+
+        if (tup[2]==1): #Header type
+            cell = findAccCellinHeader(tup[0])
+            if (cell!=-1):
+                for i in range(12):
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = "=SUM("+str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])+'!'+str(cell)+')'
+        elif (tup[2]==2): #Week type
+            for i in range(12):
+                cellRow = findAccCellinWeek(tup[0])
+                if (cellRow!=-1):
+                    cells="=SUM("
+                    while True:
+                        month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+                        cells+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                        cellRow+=rowOffset_weeks
+                        if (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value!=tup[0]):
+                            break
+
+                    cells=cells[:-1]+')'
+                    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells
     row+=1
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
