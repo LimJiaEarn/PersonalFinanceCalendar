@@ -45,7 +45,9 @@ weekSideFill = PatternFill(fill_type="solid", start_color="6BA4EF")
 weekTitleFill = [PatternFill(fill_type="solid", start_color="C3D2F9"), PatternFill(fill_type="solid", start_color="DEF2A0"),\
                 PatternFill(fill_type="solid", start_color="E0ADE9"), PatternFill(fill_type="solid", start_color="C1F6F5"),\
                 PatternFill(fill_type="solid", start_color="C0BFEF"), PatternFill(fill_type="solid", start_color="EED2B8")]
+DateFill = PatternFill(fill_type="solid", start_color="DCDCDC")
 
+            
 thin_border = Border(left=Side(style='thin'), right=Side(style='thin'), top=Side(style='thin'), bottom=Side(style='thin'))
 
 #Loads a user excel file, if unable to find, creates a new empty excel file
@@ -154,6 +156,7 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
             elif (date<=INPUT_DICT[list(INPUT_DICT)[1]][month]):   
                 CalendarFile_currentSheet[char+str(row)] = date
                 CalendarFile_currentSheet[char+str(row)].font = Font(bold=True)
+                CalendarFile_currentSheet[char+str(row)].fill = DateFill
                 CalendarFile_currentSheet[char+str(row)].alignment = Alignment(horizontal='center', vertical='center')
                 date+=1
             #When all dates of the month has been filled
