@@ -613,7 +613,24 @@ def checkHeaderWeekbyUser(title, hw):
             return hw
         print("The title you chose is not from the week list!")
         return 0
-    
+
+#Same as above function, except it returns the flowType
+def getflowTypeAfterHeaderWeekByUser(title, hw):
+    #Checking for user
+    if (hw==1):
+        for di in range(3, 5):
+            if title in RETURN_DICT[list(RETURN_DICT)[di]]:
+                return RETURN_DICT[list(RETURN_DICT)[di]][title]
+        print("The title you chose is not from the header list!")
+        return 0
+
+    else:
+        if title in RETURN_DICT[list(RETURN_DICT)[5]]:
+            return RETURN_DICT[list(RETURN_DICT)[5]][title]
+        print("The title you chose is not from the week list!")
+        return 0
+
+
 
 def OverviewRowsEditor2(dict_Index, choice, flowType): 
     #choice=1 -> Add
@@ -665,9 +682,73 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                         print("Unable to find title you requested to remove")
                         loop=False
 
+    #choice=4 -> Summation rows
     else:
-        print("TO BE DONE PERSONAL SUMMATION ROWS")
 
+        #Given flowType already
+        sumRowTitle = input("Enter your Summation Row name: ")
+        if (flowType==1):
+            print("Note: You can only choose Inflow titles")
+        else:
+            print("Note: You can only choose Outflow rows")
+
+        #Adds sumRowTitle entry into dict_Index of lists, with an empty summation row to be filled
+        #hw set to 0 as not used for summation rows
+        RETURN_DICT[list(RETURN_DICT)[dict_Index]].append([sumRowTitle, flowType, 0, []])
+
+        check = [] #temp array to check no repeated titles are added, will be initialised to RETURN_DICT at final step
+        loop=True
+        while (loop):
+            print("Enter name of titles you want to add in summmation rows: ")
+
+            if (len(check)!=0):
+                print("Current titles your summation rows: ")
+                count=1
+                for tup in check:
+                    print(f"{count}) {tup[0]}")
+                    count+=1
+            print() #Print empty line for better visual
+
+            print("Enter EXIT if you have no more titles to add")
+            sumRowAdd = input("Title: ")        
+
+            if (sumRowAdd != "EXIT"):
+                loop2=True
+                while(loop2):
+                    try:    
+                        hw = int(input("Enter 1 if your title is from headers and 2 if your title is from week: "))
+                        if (hw==1 or hw==2):
+
+                            if(checkHeaderWeekbyUser(sumRowAdd, hw)!=0 and getflowTypeAfterHeaderWeekByUser(sumRowAdd, hw)==flowType): #Checks for correctness
+                                
+                                if ((sumRowAdd, hw) not in check): #Checks for duplicate
+                                    check.append((sumRowAdd, hw))
+                                else:
+                                    print("Title has been added previously!")
+                                loop2=False
+
+                            elif (checkHeaderWeekbyUser(sumRowAdd, hw)==0):
+                                if (hw==1):
+                                    print("We could not find your title in headers")
+                                else:
+                                    print("We could not find your title in weeks")
+                                loop2=False #This makes user enter both title and header/week index again
+                            elif (getflowTypeAfterHeaderWeekByUser(sumRowAdd, hw)!=flowType):
+                                print("You entered a title of the wrong flow type")
+                                loop2=False
+                        else:
+                            print("You entered an invalid number!")
+                    except ValueError:
+                        print("You entered an invalid number!")
+
+            else:
+                loop=False
+
+        #Update check to list, current instance summation row is always the last one
+        RETURN_DICT[list(RETURN_DICT)[dict_Index]][len(RETURN_DICT[list(RETURN_DICT)[dict_Index]])-1][3] = check
+
+        print("Successfully added Summation row: "+ sumRowTitle)
+        print("This is immutable, however you may choose to remove this row and edit again")
 
     return
 
