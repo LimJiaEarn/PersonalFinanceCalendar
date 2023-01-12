@@ -277,6 +277,7 @@ CalendarFile_currentSheet[get_column_letter(columnOffset_Overview)+str(row-1)].f
 for tup in INPUT_DICT[list(INPUT_DICT)[6]]:
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = tup[0]
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
+    #For non summation rows
     if (len(tup[3])==0):
 
         if (tup[2]==1): #Header type
@@ -298,6 +299,42 @@ for tup in INPUT_DICT[list(INPUT_DICT)[6]]:
                             break
                     cells=cells[:-1]+')'
                     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells   
+    #For summation rows
+    else:
+        #For every month
+        for i in range(12):
+            sumCode="="
+            month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+            #For every title inside summation row
+            for titleTup in tup[3]:
+
+                #Header title
+                if (titleTup[1] == 1):
+                                            
+                    cell = findAccCellinHeader(titleTup[0])
+                    if (cell!=-1):
+                        #Iterating through each month
+                        sumCode2 = "SUM("+month+'!'+str(cell)+')'
+                        sumCode+=(sumCode2+"+")
+                
+                #Week title
+                elif (titleTup[1] == 2):
+                    
+                        cellRow = findAccCellinWeek(titleTup[0])
+                        if (cellRow!=-1):
+                            sumCode2="SUM("
+                            while (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value==titleTup[0]):
+                                sumCode2+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                                cellRow+=rowOffset_weeks
+
+                            sumCode2=sumCode2[:-1]+')'
+                            sumCode+=(sumCode2+"+")
+                            
+            sumCode=sumCode[:-1]
+            CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = sumCode  
+
+
+
     row+=1
 
 
@@ -337,6 +374,42 @@ for tup in INPUT_DICT[list(INPUT_DICT)[7]]:
                             break
                     cells=cells[:-1]+')'
                     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells   
+    
+    #For summation rows
+    else:
+        #For every month
+        for i in range(12):
+            sumCode="="
+            month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+            #For every title inside summation row
+            for titleTup in tup[3]:
+
+                #Header title
+                if (titleTup[1] == 1):
+                                            
+                    cell = findAccCellinHeader(titleTup[0])
+                    if (cell!=-1):
+                        #Iterating through each month
+                        sumCode2 = "SUM("+month+'!'+str(cell)+')'
+                        sumCode+=(sumCode2+"+")
+                
+                #Week title
+                elif (titleTup[1] == 2):
+                    
+                        cellRow = findAccCellinWeek(titleTup[0])
+                        if (cellRow!=-1):
+                            sumCode2="SUM("
+                            while (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value==titleTup[0]):
+                                sumCode2+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                                cellRow+=rowOffset_weeks
+
+                            sumCode2=sumCode2[:-1]+')'
+                            sumCode+=(sumCode2+"+")
+                            
+            sumCode=sumCode[:-1]
+            CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = sumCode  
+
+    
     row+=1
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
@@ -370,7 +443,9 @@ for month in INPUT_DICT[list(INPUT_DICT)[1]].keys():
 for tup in INPUT_DICT[list(INPUT_DICT)[8]]:
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = tup[0]
     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
-    if (len(tup[3])==0):
+
+    #For non summation rows
+    if (len(tup[3])==0): 
         if (tup[2]==1): #Header type
             cell = findAccCellinHeader(tup[0])
             if (cell!=-1):
@@ -392,6 +467,39 @@ for tup in INPUT_DICT[list(INPUT_DICT)[8]]:
                     cells=cells[:-1]+')'
 
                     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells
+    #For summation rows
+    else:
+        #For every month
+        for i in range(12):
+            sumCode="="
+            month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+            #For every title inside summation row
+            for titleTup in tup[3]:
+
+                #Header title
+                if (titleTup[1] == 1):
+                                            
+                    cell = findAccCellinHeader(titleTup[0])
+                    if (cell!=-1):
+                        #Iterating through each month
+                        sumCode2 = "SUM("+month+'!'+str(cell)+')'
+                        sumCode+=(sumCode2+"+")
+                
+                #Week title
+                elif (titleTup[1] == 2):
+                    
+                        cellRow = findAccCellinWeek(titleTup[0])
+                        if (cellRow!=-1):
+                            sumCode2="SUM("
+                            while (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value==titleTup[0]):
+                                sumCode2+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                                cellRow+=rowOffset_weeks
+
+                            sumCode2=sumCode2[:-1]+')'
+                            sumCode+=(sumCode2+"+")
+                            
+            sumCode=sumCode[:-1]
+            CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = sumCode  
 
     row+=1
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
@@ -441,6 +549,41 @@ for tup in INPUT_DICT[list(INPUT_DICT)[9]]:
 
                     cells=cells[:-1]+')'
                     CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = cells
+
+    #For summation rows
+    else:
+        #For every month
+        for i in range(12):
+            sumCode="="
+            month = str(list(INPUT_DICT[list(INPUT_DICT)[1]].keys())[i][0:3])
+            #For every title inside summation row
+            for titleTup in tup[3]:
+
+                #Header title
+                if (titleTup[1] == 1):
+                                            
+                    cell = findAccCellinHeader(titleTup[0])
+                    if (cell!=-1):
+                        #Iterating through each month
+                        sumCode2 = "SUM("+month+'!'+str(cell)+')'
+                        sumCode+=(sumCode2+"+")
+                
+                #Week title
+                elif (titleTup[1] == 2):
+                    
+                        cellRow = findAccCellinWeek(titleTup[0])
+                        if (cellRow!=-1):
+                            sumCode2="SUM("
+                            while (CalendarFile[month][get_column_letter(columnOffset+1)+str(cellRow)].value==titleTup[0]):
+                                sumCode2+=(month+'!'+get_column_letter(columnOffset+2)+str(cellRow)+':'+get_column_letter(columnOffset+8)+str(cellRow)+',')
+                                cellRow+=rowOffset_weeks
+
+                            sumCode2=sumCode2[:-1]+')'
+                            sumCode+=(sumCode2+"+")
+                            
+            sumCode=sumCode[:-1]
+            CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1+i+1)+str(row)] = sumCode  
+    
     row+=1
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
 CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
