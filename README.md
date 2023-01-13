@@ -14,7 +14,7 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 
 ## Table of contents
 - [Inspirations](#inspirations)
-- [Uses Cases](#use cases)
+- [Use Cases]
 
 
 
