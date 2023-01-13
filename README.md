@@ -4,4 +4,4 @@ Personal Project to explore the Python library - Openpyxl. Its documentation is 
 This tracker is inspired by numerous excel trackers but lack customisability for different users. Hence I created a python script that revolves around a user preference for his tracking and create a calendar around it.
 
 
-## Introduction[![](./README_docs/IntroIcon.png)](#introduction)
+## Introduction[![](./README_docs/IntroIcon.svg)](#introduction)
