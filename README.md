@@ -6,3 +6,16 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 
 ## Introduction
 
+
+
+
+
+
+
+## Table of contents
+- [Inspirations](#inspirations)
+
+
+
+
+## Inspirations
