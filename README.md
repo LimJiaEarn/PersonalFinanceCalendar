@@ -18,7 +18,6 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 - [Examples](#examples)
     - [For Students](#for-students)
     - [For Working Adults](#for-working-adults)
--     
 - [Installation Guide](#installation-guide)
 - [Customisation Guide](#customisation-guide)
 
