@@ -14,7 +14,7 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 
 ## Table of contents
 - [Inspirations](#inspirations)
-- [Use Cases](#use-cases)
+- [Mission](#mission)
 - [Examples](#examples)
     - [For Students](#for-students)
     - [For Working Adults](#for-working-adults)
@@ -29,7 +29,7 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 
 
 
-## Use cases
+## Mission
 
 
 
