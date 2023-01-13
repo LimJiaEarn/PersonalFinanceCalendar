@@ -15,9 +15,9 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 ## Table of contents
 - [Inspirations](#inspirations)
 - [Use Cases](#use-cases)
-
-
-
+- [Examples](#examples)
+- [Installation Guide](#installation-guide)
+- [Customisation Guide](#customisation-guide)
 
 
 ## Inspirations
@@ -27,3 +27,19 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 
 
 ## Use cases
+
+
+
+
+## Examples
+
+
+
+
+## Installation Guide
+
+
+## Customisation Guide
+
+
+
