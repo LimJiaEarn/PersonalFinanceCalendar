@@ -37,10 +37,10 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 ## Examples
 
 
-#### For Students
+### For Students
 
 
-#### For Working Adults
+### For Working Adults
 
 
 
