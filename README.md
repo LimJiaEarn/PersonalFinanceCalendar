@@ -55,33 +55,41 @@ Monthly Page:
 
 ## Customisation Guide 
 
-### Data Dictionary
+### Data Dictionary 
+<br /><br />
+#### Visual representation of terms used:
+
+Overview Page:
+
+![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Overview%20Page.PNG)
+
+
+#### Expenses Overview (/ Titles)
+
+#### Inflow Breakdown (/ Titles)
+
+#### Expenses Breakdown (/ Titles)
+
+
+Monthly Page:
+
+![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Monthly%20Page.PNG)
+
+
+#### Left Header (/ Titles)
+
+#### Right Header  (/ Titles)
+
+#### Weekly Rows (/ Titles)
+
+#### Inflow Overview (/ Titles)
+
 
 #### Accounting Rows
 Accounting Rows are preset rows where you will enter the numerical value of your money movements (e.g. Rent, Meals).
 Accounting Rows are split to two types
 1) Inflow - Adds to your financials (Salary)
 2) Expenses - Deducts from your financials (Meals)
-
-#### Left Header / Left Header Titles
-
-
-#### Right Header  / Left Header Titles
-
-
-#### Weekly Rows / Weekly Rows Titles
-
-
-#### Inflow Overview / Inflow Overview Titles
-
-#### Expenses Overview / Expenses Overview Titles
-
-#### Inflow Breakdown / Inflow Breakdown Titles
-
-#### Expenses Breakdown / Expenses Breakdown Titles
-
-
-
 
 
 
