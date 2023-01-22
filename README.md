@@ -63,12 +63,13 @@ Overview Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Overview%20Page.PNG)
 
+#### Inflow Overview (/ Titles) - First tab
 
-#### Expenses Overview (/ Titles)
+#### Expenses Overview (/ Titles) - Second tab
 
-#### Inflow Breakdown (/ Titles)
+#### Inflow Breakdown (/ Titles) - Third tab
 
-#### Expenses Breakdown (/ Titles)
+#### Expenses Breakdown (/ Titles) - Fourth tab
 
 
 Monthly Page:
@@ -76,13 +77,13 @@ Monthly Page:
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Monthly%20Page.PNG)
 
 
-#### Left Header (/ Titles)
+#### Left Header (/ Titles) -  Top left 
 
-#### Right Header  (/ Titles)
+#### Right Header  (/ Titles) - Top right
 
-#### Weekly Rows (/ Titles)
+#### Weekly Rows (/ Titles) - Left main section
 
-#### Inflow Overview (/ Titles)
+
 
 
 #### Accounting Rows
@@ -92,8 +93,9 @@ Accounting Rows are split to two types
 2) Expenses - Deducts from your financials (Meals)
 
 
-
-
+#### Summation Rows
+Summation Rows are customised rows where you choose the titles you want to add together for a more personalised overview page.
+Example: Miscellaneous row can be added to sum up rows not chosen to presented in overview tab
 
 
 
