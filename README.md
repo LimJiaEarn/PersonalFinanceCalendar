@@ -63,19 +63,22 @@ Accounting Rows are split to two types
 1) Inflow - Adds to your financials (Salary)
 2) Expenses - Deducts from your financials (Meals)
 
-#### Left Header / Left Header Title
+#### Left Header / Left Header Titles
 
 
-#### Right Header  / Left Header Title
+#### Right Header  / Left Header Titles
 
 
-#### Weekly Rows / Weekly Rows Title
+#### Weekly Rows / Weekly Rows Titles
 
 
-#### Inflow Overview / Inflow Overview Title
+#### Inflow Overview / Inflow Overview Titles
 
-#### Expenses Overview / Expenses Overview Title
+#### Expenses Overview / Expenses Overview Titles
 
+#### Inflow Breakdown / Inflow Breakdown Titles
+
+#### Expenses Breakdown / Expenses Breakdown Titles
 
 
 
