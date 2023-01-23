@@ -16,7 +16,7 @@
 ## Introduction
 
 This project is a inspired by the numerous excel financial trackers available online but lack personalisation and customisability.
-Your finances are recorded on [Accounting Rows](#data-dictionary)
+Your finances are recorded on [Accounting Rows]([#data-dictionary](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#accounting-rows))
 
 
 This tracker is inspired by numerous excel trackers but lack customisability for different users such as students/working adults.
