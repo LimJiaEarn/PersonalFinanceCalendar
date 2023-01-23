@@ -17,7 +17,7 @@
 ## Introduction
 
 This project is a inspired by the numerous excel financial trackers available online but lack personalisation and customisability.
-Your finances are recorded on [Accounting Rows](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#accounting-rows) where they can be
+Your finances are recorded on [accounting Rows](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#accounting-rows) where they can be
 summed (more features such as calculating %, savings will be added). The design mimics a calendar for a more aesthetic interface with 2 [themes](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#themes) to choose from
 
 You are highly recommended to read the customisation guide to fully utilise the customisation features built in this program!
