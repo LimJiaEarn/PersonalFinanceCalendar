@@ -42,6 +42,7 @@ Monthly Page:
 
 
 
+
 ### For Working Adults
 
 
@@ -53,8 +54,7 @@ Overview Page:
 Monthly Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Working%20Adult%20Sample%20Monthly.PNG)
-
-
+<br /><br />
 ## Installation Guide
 
 
