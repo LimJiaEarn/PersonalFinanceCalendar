@@ -12,7 +12,7 @@ You are highly recommended to read the customisation guide to fully utilise the 
 
 ## Table of contents
 - [Inspirations](#inspirations)
-- [Examples](#examples)
+- [Samples / Examples](#samples-/-examples)
     - [For Students](#for-students)
     - [For Working Adults](#for-working-adults)
 - [Installation Guide](#installation-guide)
@@ -26,7 +26,7 @@ You are highly recommended to read the customisation guide to fully utilise the 
 This tracker is inspired by numerous excel trackers but lack customisability for different users. Hence I created a python script that revolves around a user preference for his tracking and create a calendar around it.
 
 
-## Examples
+## Samples / Examples
 
 
 ### For Students
