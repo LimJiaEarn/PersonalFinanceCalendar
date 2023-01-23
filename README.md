@@ -17,7 +17,7 @@
 ## Introduction
 
 This project is a inspired by the numerous excel financial trackers available online but lack personalisation and customisability.
-Your finances are recorded on [accounting Rows](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#accounting-rows) where they can be
+Your finances are recorded on [accounting rows](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#accounting-rows) where they can be
 summed (more features such as calculating %, savings will be added). The design mimics a calendar for a more aesthetic interface with 2 [themes](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#themes) to choose from
 
 You are highly recommended to read the customisation guide to fully utilise the customisation features built in this program!
@@ -63,9 +63,26 @@ Monthly Page:
 <br /><br />
 ### Themes
 
+#### Tropical Theme (Overview Page)
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Overview%20Theme%20Tropical.PNG)
+
+#### Tropical Theme (Monthly Page)
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Monthly%20Theme%20Tropical.PNG)
 
 
+#### Modern Theme (Overview Page)
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Overview%20Theme%20Modern.PNG)
 
+#### Modern Theme (Monthly Page)
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Monthly%20Theme%20Modern.PNG)
+
+
+#### Modern Theme (Overview Page)
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Overview%20Theme%20Desert.PNG)
+
+#### Modern Theme (Monthly Page)
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Monthly%20Theme%20Desert.PNG)
+<br /><br />
 ### Data Dictionary 
 
 
