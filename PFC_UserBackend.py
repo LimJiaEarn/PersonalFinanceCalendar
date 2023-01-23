@@ -1,10 +1,9 @@
 # Contains all python code for UI
 #These are the default titles, there will be no change to this
 left_headerTitles_original = {"Income":1, "Investments/Dividends":1, "Comments":0}
-right_headerTitles_original = {"Rent":1, "Subscriptions":1, "Comments":0}
-week_titles_original = {"Date":0, "Notes":0, "Inflow":0,"Inflow Category":0, "Expenses":1, "Expenses Category":0}
-Overview_Inflow_original = ["Income", "Others"]
-Overview_Outflow_original = ["Rent", "Services", "Others"]
+right_headerTitles_original = {"Rent":2, "Subscriptions":2, "Comments":0}
+week_titles_original = {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0}
+
 
 #This dictionary stores everything we need to initialise the calendar where its value will be initialised systematically by default or by user
 #It is initialised with default values
@@ -25,15 +24,14 @@ Overview_Outflow_original = ["Rent", "Services", "Others"]
 
 
 
-#For own testing
 RETURN_DICT = { "YEAR": 2023,\
                 "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":31, "September":30, "October":31, "November":30, "December":31},\
                 "START_DAY": 0,\
                 "left_headerTitles": {"Income":1, "Investments/Dividends":1, "Comments":0},\
                 "right_headerTitles": {"Rent":2, "Subscriptions":2, "Comments":0},\
                 "week_titles": {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0},\
-                "Overview_Inflow":[("Income", 1, 1, []), ("Miscellaneous", 1, 1, [])], \
-                "Overview_Expenses":[("Rent", 2, 1, []), ("Miscellaneous", 2, 2, [])],\
+                "Overview_Inflow":[], \
+                "Overview_Expenses":[],\
                 "Inflow_Breakdown":[],\
                 "Expenses_Breakdown":[],\
               }
@@ -457,14 +455,11 @@ def AccountingRowsPrinter(dict_Index):
     print("==========")
 
 def AccountingRowsEditor2(dict_Index, choice):
-    loop=True
-    while (loop):
-        title = input("Enter title name: ")
-        if ((title not in RETURN_DICT[list(RETURN_DICT)[dict_Index]]) or (title=="Date")):
-            print("Invalid title!")
-        else:
-            RETURN_DICT[list(RETURN_DICT)[dict_Index]][title] = choice%3
-            loop=False
+    title = input("Enter title name: ")
+    if ((title not in RETURN_DICT[list(RETURN_DICT)[dict_Index]]) or (title=="Date")):
+        print("Invalid title!")
+    else:
+        RETURN_DICT[list(RETURN_DICT)[dict_Index]][title] = choice%3
                 
     return
     
@@ -535,10 +530,10 @@ def UserMainSelection3():
     print("Now you may choose to customise a yearly overview page\nNote: Overview is empty by default, Breakdown contains all accounting rows by default")
     while True:
         print("Enter a selection below:")
-        print("1 : Edit Inflow Overview rows") #index 6
-        print("2 : Edit Expenses Overview rows") #index 7
-        print("3 : Edit Inflow breakdown rows") #index 8
-        print("4 : Edit Expenses breakdown rows") #index 9
+        print("1 : Edit Inflow Overview Titles") #index 6
+        print("2 : Edit Expenses Overview Titles") #index 7
+        print("3 : Edit Inflow Breakdown Titles") #index 8
+        print("4 : Edit Expenses Breakdown Titles") #index 9
         print("5 : Display current Inflow and Expenses row titles")
         print("0 : Proceed !")
         loop=True
@@ -605,13 +600,11 @@ def checkHeaderWeekbyUser(title, hw):
         for di in range(3, 5):
             if title in RETURN_DICT[list(RETURN_DICT)[di]]:
                 return hw
-        print("The title you chose is not from the header list!")
         return 0
 
     else:
         if title in RETURN_DICT[list(RETURN_DICT)[5]]:
             return hw
-        print("The title you chose is not from the week list!")
         return 0
 
 #Same as above function, except it returns the flowType
@@ -643,6 +636,7 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                 print("Invalid title!")
                 loop=False
             else:
+                #Add Row
                 if (choice==1):
 
                     doubleC=1
@@ -657,19 +651,20 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                             try:    
                                 hw = int(input("Enter 1 if your title is from headers and 2 if your title is from week: "))
                                 if (hw==1 or hw==2):
-                                    if(checkHeaderWeekbyUser(title, hw)!=0): #Checks for correctness
+                                    if(getflowTypeAfterHeaderWeekByUser(title, hw)==flowType): #Checks for correctness
                                         RETURN_DICT[list(RETURN_DICT)[dict_Index]].append([title, (dict_Index%2)+1, hw, []])
                                         loop=False
                                         loop2=False
                                         print("Successfully added!")
                                     else:
+                                        print("Invalid Title!")
                                         loop2=False
                                 else:
                                     print("You entered an invalid number!")
                             except ValueError:
                                 print("You entered an invalid number!")
 
-                         
+                #Remove row
                 else:
                     ch=0
                     for tup in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
@@ -688,9 +683,9 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
         #Given flowType already
         sumRowTitle = input("Enter your Summation Row name: ")
         if (flowType==1):
-            print("Note: You can only choose Inflow titles")
+            print("Note: You can only choose Inflow Titles")
         else:
-            print("Note: You can only choose Outflow rows")
+            print("Note: You can only choose Outflow Titles")
 
         #Adds sumRowTitle entry into dict_Index of lists, with an empty summation row to be filled
         #hw set to 0 as not used for summation rows
