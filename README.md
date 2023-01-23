@@ -27,10 +27,10 @@ This tracker is inspired by numerous excel trackers but lack customisability for
 
 
 ## Samples / Examples
-
-
-### For Students
 <br /><br />
+### For Students
+
+
 Overview Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Student%20Sample%20Overview.PNG)
@@ -41,9 +41,18 @@ Monthly Page:
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Student%20Sample%20Monthly.PNG)
 
 
+
 ### For Working Adults
 
 
+Overview Page:
+
+![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Working%20Adult%20Sample%20Overview.PNG)
+
+
+Monthly Page:
+
+![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Working%20Adult%20Sample%20Monthly.PNG)
 
 
 ## Installation Guide
