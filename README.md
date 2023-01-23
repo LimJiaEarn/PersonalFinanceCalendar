@@ -8,7 +8,8 @@
     - [For Working Adults](#for-working-adults)
 - [Installation Guide](#installation-guide)
 - [Customisation Guide](#customisation-guide)
-    - [Data Dictionary](#data-dictionary)
+    - [Themes](#themes)
+    - [Data Dictionary](#data-dictionary) 
 - [Technologies Used](#technologies-used)
 
 
@@ -16,13 +17,11 @@
 ## Introduction
 
 This project is a inspired by the numerous excel financial trackers available online but lack personalisation and customisability.
-Your finances are recorded on [Accounting Rows](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#accounting-rows)
+Your finances are recorded on [Accounting Rows](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#accounting-rows) where they can be
+summed (more features such as calculating %, savings will be added). The design mimics a calendar for a more aesthetic interface with 2 [themes](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#themes) to choose from
 
+You are highly recommended to read the customisation guide to fully utilise the customisation features built in this program!
 
-This tracker is inspired by numerous excel trackers but lack customisability for different users such as students/working adults.
-Henceforth this script is designed with customisability as its highest priority. The design follows closely to a Calendar
-
-You are highly recommended to read the customisation guide to fully utilise the customisation features built in this program.
 
 ## Samples / Examples
 <br /><br />
@@ -61,9 +60,16 @@ Monthly Page:
 
 
 ## Customisation Guide 
+<br /><br />
+### Themes
+
+
+
 
 ### Data Dictionary 
-<br /><br />
+
+
+
 #### Visual representation of terms used:
 
 Overview Page:
