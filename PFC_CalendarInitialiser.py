@@ -341,15 +341,15 @@ for tup in INPUT_DICT[list(INPUT_DICT)[6]]:
 
     row+=1
 
-
-CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
-CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
-CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
-for m2 in range(12):
-    column = get_column_letter(columnOffset_Overview+2+m2)
-    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)] = "=SUM("+column+str(row-len(INPUT_DICT[list(INPUT_DICT)[6]]))+":"+column+str(row-1)+")"
-    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].fill = summaryTotalRowFill
-    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].alignment = Alignment(horizontal='right', vertical='center')
+if (len(INPUT_DICT[list(INPUT_DICT)[6]])!=0):
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
+    for m2 in range(12):
+        column = get_column_letter(columnOffset_Overview+2+m2)
+        CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)] = "=SUM("+column+str(row-len(INPUT_DICT[list(INPUT_DICT)[6]]))+":"+column+str(row-1)+")"
+        CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].fill = summaryTotalRowFill
+        CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].alignment = Alignment(horizontal='right', vertical='center')
 CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row+1)+":"+get_column_letter(columnOffset+13)+str(row+1))
 
 #Overview Outflow
@@ -416,14 +416,16 @@ for tup in INPUT_DICT[list(INPUT_DICT)[7]]:
 
     
     row+=1
-CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
-CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
-CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
-for m2 in range(12):
-    column = get_column_letter(columnOffset_Overview+2+m2)
-    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)] = "=SUM("+column+str(row-len(INPUT_DICT[list(INPUT_DICT)[7]]))+":"+column+str(row-1)+")"
-    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].fill = summaryTotalRowFill
-    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].alignment = Alignment(horizontal='right', vertical='center')
+
+if (len(INPUT_DICT[list(INPUT_DICT)[7]])):
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)] = "Total"
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].fill = summaryTotalRowFill
+    CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+1)+str(row)].alignment = Alignment(horizontal='center', vertical='center')
+    for m2 in range(12):
+        column = get_column_letter(columnOffset_Overview+2+m2)
+        CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)] = "=SUM("+column+str(row-len(INPUT_DICT[list(INPUT_DICT)[7]]))+":"+column+str(row-1)+")"
+        CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].fill = summaryTotalRowFill
+        CalendarFile_currentSheet[get_column_letter(columnOffset_Overview+2+m2)+str(row)].alignment = Alignment(horizontal='right', vertical='center')
 
 CalendarFile_currentSheet.merge_cells(get_column_letter(columnOffset)+str(row+1)+":"+get_column_letter(columnOffset+13)+str(row+2))
 
