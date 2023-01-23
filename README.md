@@ -77,10 +77,10 @@ Monthly Page:
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Monthly%20Theme%20Modern.PNG)
 
 
-#### Modern Theme (Overview Page)
+#### Desert Theme (Overview Page)
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Overview%20Theme%20Desert.PNG)
 
-#### Modern Theme (Monthly Page)
+#### Desert Theme (Monthly Page)
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Monthly%20Theme%20Desert.PNG)
 <br /><br />
 ### Data Dictionary 
