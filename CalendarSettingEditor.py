@@ -13,15 +13,14 @@ while (loop):
         elif (selection==1):
             print("Before we initialise your calendar, you may choose to customise certain components of your calendar")
             if (PFC_UserBackend.setYEAR()):
-                while (PFC_UserBackend.UserMainSelection1()): #Sets monthly page
-                    continue
-                while (PFC_UserBackend.UserMainSelection2()): #Sets accounting rows 
-                    continue  
-                PFC_UserBackend.BreakdownRowsInitialise() #Initialise breakdown rows for overview page
-                while (PFC_UserBackend.UserMainSelection3()): #Sets year overview page
-                    continue 
-
-
+                if (PFC_UserBackend.setTheme()):
+                    while (PFC_UserBackend.UserMainSelection1()): #Sets monthly page
+                        continue
+                    while (PFC_UserBackend.UserMainSelection2()): #Sets accounting rows 
+                        continue  
+                    PFC_UserBackend.BreakdownRowsInitialise() #Initialise breakdown rows for overview page
+                    while (PFC_UserBackend.UserMainSelection3()): #Sets year overview page
+                        continue 
 
             loop=False
         

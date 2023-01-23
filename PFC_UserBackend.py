@@ -17,6 +17,7 @@ week_titles_original = {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Tr
 #Index 7 - Main Expenses Overview 
 #Index 8 - Inflow Breakdown
 #Index 9 - Outflow Breakdown
+#Index 10 - Theme Colors
 
 #Title, flowType, 1-header / 2-week, summation titles**
 #1 - Inflow
@@ -34,7 +35,14 @@ RETURN_DICT = { "YEAR": 2023,\
                 "Overview_Expenses":[],\
                 "Inflow_Breakdown":[],\
                 "Expenses_Breakdown":[],\
+                "Theme Colors":[]\
               }
+
+ThemeColors_Tropical = ["EE8EB3", "D9D9D9", "9EAAF0", "AFB7C9", "81C4E5","91D9D9","20C220", "C5F7CA", "F3C9DE", "6BA4EF", ["C3D2F9", "DEF2A0", "E0ADE9", "C1F6F5", "C0BFEF", "EED2B8"], "DCDCDC"]
+                
+ThemeColors_Desert = ['AE4E38', 'D9D9D9', 'DB8065', 'DF915E', 'A8A7A7', 'A5887A', 'C8C8A9', 'DAC4B3', 'F99DA6', 'E8E8E8', ['A8E6CE', 'DCEDC2', 'FFD3B5', 'FFAAA6', 'FF8C94', 'CC527A'], 'D0B7AC']
+
+ThemeColors_Modern = ['B5C2C7', 'DFDBD8', 'E7CAC2', 'E6E6E6', '768A96', '9BD7D1', 'D37556', 'E3C1B4', 'DFEBF6', 'D8B26E', ['D4E8DC', 'E6D0CA', 'EEE4DB', 'E2E0D5', 'DAD5D2', 'CEBEB9'], 'DBBFBB']
 
 
 #For debugging
@@ -70,6 +78,26 @@ def setYEAR():
 
         except ValueError:
             print("Invalid year! Use numbers")  
+
+def setTheme():
+    print("You may choose 3 themes for your calendar")
+    print("1: Tropical\n2: Desert\n3: Modern")
+    while True:
+        try:
+            themeChoice = int(input("Theme Selection: "))
+            if (themeChoice<1 or themeChoice>3):
+                print("Invalid theme!")
+            else:
+                if (themeChoice==3):
+                    RETURN_DICT[list(RETURN_DICT)[10]] = ThemeColors_Modern
+                elif (themeChoice==2):
+                    RETURN_DICT[list(RETURN_DICT)[10]] = ThemeColors_Desert
+                else:
+                    RETURN_DICT[list(RETURN_DICT)[10]] = ThemeColors_Tropical
+                return True
+
+        except ValueError:
+            print("Invalid theme! Enter index of theme choices")  
 
 def updateRETURN_DICT(keyIndex, newValue):
 

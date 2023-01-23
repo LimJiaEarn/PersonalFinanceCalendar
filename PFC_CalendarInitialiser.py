@@ -22,6 +22,7 @@ startDayOfMonth_index = daysOfWeek.index(startDayOfMonth) #initially set to star
 #Index 7 - Main Expenses Overview 
 #Index 8 - Inflow Breakdown
 #Index 9 - Outflow Breakdown
+#Index 10 - Theme Colors
 
 #Rows needed to offset before the first row of main data, absolute +3 because of seperator cells
 rowOffset_header = max(len(INPUT_DICT[list(INPUT_DICT)[3]]), len(INPUT_DICT[list(INPUT_DICT)[4]])) +3
@@ -32,20 +33,20 @@ rowOffset_weeks = len(INPUT_DICT[list(INPUT_DICT)[5]]) +1
 columnOffset = 2
 
 #Pre-set cell styling and colors (not user changing yet through code)
-summaryExpensesSideFill = PatternFill(fill_type="solid", start_color="EE8EB3")
-summaryTotalRowFill = PatternFill(fill_type="solid", start_color="D9D9D9")
-summaryDepthRowFill = PatternFill(fill_type="solid", start_color="9EAAF0")
-seperatorFill = PatternFill(fill_type="solid", start_color="AFB7C9")
-sheetMonthFill = PatternFill(fill_type="solid", start_color="81C4E5")
-sheetDaysFill = PatternFill(fill_type="solid", start_color="91D9D9")
-headerSideFill = PatternFill(fill_type="solid", start_color="20C220")
-leftheaderTitleFill = PatternFill(fill_type="solid", start_color="C5F7CA")
-rightheaderTitleFill = PatternFill(fill_type="solid", start_color="F3C9DE")
-weekSideFill = PatternFill(fill_type="solid", start_color="6BA4EF")
-weekTitleFill = [PatternFill(fill_type="solid", start_color="C3D2F9"), PatternFill(fill_type="solid", start_color="DEF2A0"),\
-                PatternFill(fill_type="solid", start_color="E0ADE9"), PatternFill(fill_type="solid", start_color="C1F6F5"),\
-                PatternFill(fill_type="solid", start_color="C0BFEF"), PatternFill(fill_type="solid", start_color="EED2B8")]
-DateFill = PatternFill(fill_type="solid", start_color="DCDCDC")
+summaryExpensesSideFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[0])
+summaryTotalRowFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[1])
+summaryDepthRowFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[2])
+seperatorFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[3])
+sheetMonthFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[4])
+sheetDaysFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[5])
+headerSideFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[6])
+leftheaderTitleFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[7])
+rightheaderTitleFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[8])
+weekSideFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[9])
+weekTitleFill = [PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[10][0]), PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[10][1]),\
+                PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[10][2]), PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[10][3]),\
+                PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[10][4]), PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[10][5])]
+DateFill = PatternFill(fill_type="solid", start_color=list(INPUT_DICT[list(INPUT_DICT)[10]])[11])
 
             
 thin_border = Border(left=Side(style='thin'), right=Side(style='thin'), top=Side(style='thin'), bottom=Side(style='thin'))
