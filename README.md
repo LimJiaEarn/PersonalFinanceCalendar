@@ -100,5 +100,7 @@ Example: Miscellaneous row can be added to sum up rows not chosen to presented i
 
 
 ## Technologies Used
-Python library - Openpyxl. Its documentation is available at https://openpyxl.readthedocs.io/en/stable/
+This script is written 100% in python with the assistance of Openpyxl and a subset of json library.
+To read more on openpyxl, its documentation is available at https://openpyxl.readthedocs.io/en/stable/
+
 
