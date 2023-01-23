@@ -1,30 +1,28 @@
-# Personal Finance Tracker
-
-
-
-## Introduction
-
-You are highly recommended to read the customisation guide to fully utilise the customisation features built in this program.
-
-
-
+# Personal Finance Calendar
 
 
 ## Table of contents
-- [Inspirations](#inspirations)
+- [Introduction](#introduction)
 - [Samples / Examples](#samples-/-examples)
     - [For Students](#for-students)
     - [For Working Adults](#for-working-adults)
 - [Installation Guide](#installation-guide)
 - [Customisation Guide](#customisation-guide)
+    - [Data Dictionary](#data-dictionary)
 - [Technologies Used](#technologies-used)
 
 
 
-## Inspirations
+## Introduction
 
-This tracker is inspired by numerous excel trackers but lack customisability for different users. Hence I created a python script that revolves around a user preference for his tracking and create a calendar around it.
+This project is a inspired by the numerous excel financial trackers available online but lack personalisation and customisability.
+Your finances are recorded on Accounting Rows (#data-dictionary)
 
+
+This tracker is inspired by numerous excel trackers but lack customisability for different users such as students/working adults.
+Henceforth this script is designed with customisability as its highest priority. The design follows closely to a Calendar
+
+You are highly recommended to read the customisation guide to fully utilise the customisation features built in this program.
 
 ## Samples / Examples
 <br /><br />
