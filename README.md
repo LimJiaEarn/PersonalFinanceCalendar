@@ -78,7 +78,7 @@ Monthly Page:
 * [Download](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2FLimJiaEarn%2FPersonalFinanceCalendar%2Ftree%2Fmain%2FDownloadMe) or clone this repository's [DownloadMe](https://github.com/LimJiaEarn/PersonalFinanceCalendar/tree/main/DownloadMe). 
 * You are highly encouraged to extract/store the downloaded files in a single folder
 * Launch Command Prompt and change directory to the folder you have installed the files in. 
-![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Overview%20Theme%20Tropical.PNG)
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/InstallBuildGuidePic1.PNG)
 
 * 'pip install openpyxl' to install Openpyxl Library, you may read how to [install packages](https://packaging.python.org/en/latest/tutorials/installing-packages/) should you need more assistance
 * You are ready to start building your calendar after this!
