@@ -143,7 +143,7 @@ Initialise Calendar In Future:
 
 
 
-####Overview Page:
+#### Overview Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Overview%20Page.PNG)
 
@@ -156,7 +156,7 @@ Initialise Calendar In Future:
 #### Expenses Breakdown (/ Titles) - Fourth tab
 
 
-####Monthly Page:
+#### Monthly Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Monthly%20Page.PNG)
 
