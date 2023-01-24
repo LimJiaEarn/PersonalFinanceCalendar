@@ -80,7 +80,7 @@ Monthly Page:
 * Launch Command Prompt and change directory to the folder you have installed the files in. 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/InstallBuildGuidePic1.PNG)
 
-* 'pip install openpyxl' to install Openpyxl Library, you may read how to [install packages](https://packaging.python.org/en/latest/tutorials/installing-packages/) should you need more assistance
+* `pip install openpyxl` to install Openpyxl Library, you may read how to [install packages](https://packaging.python.org/en/latest/tutorials/installing-packages/) should you need more assistance
 * You are ready to start building your calendar after this!
 
 
@@ -88,7 +88,7 @@ Monthly Page:
 
 Note: Before you start building, please read the [Customisation Guide](#customisation-guide) so you can fully utilise the customisation features!
 
-* 'python CalendarSettingEditor.py' to starting running the python script
+* `python CalendarSettingEditor.py` to starting running the python script
 * Enter 1 (Loading previous Calendar Settings is still under construction)
 * Enter the year of your Calendar
 * Enter the [theme](#themes) for your Calendar
@@ -106,12 +106,11 @@ Initialise Calendar Now:
 * Enter your file name you would like (e.g. MyCalendar, MyFinances)
 
 Initialise Calendar In Future:
-* 'python PFC_CalendarInitialiser.py' to starting running the python script
+* `python PFC_CalendarInitialiser.py` to starting running the python script
 * Enter your file name you would like (e.g. MyCalendar, MyFinances)
 
 === Congratulations you have successfully built your Calendar! ===
-
-
+<br /><br />
 ## Customisation Guide 
 
 
