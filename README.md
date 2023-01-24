@@ -71,8 +71,6 @@ Monthly Page:
 
 
 
-## Installation and Build Guide 
-
 ### Installing in Windows:
 
 * [Download](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2FLimJiaEarn%2FPersonalFinanceCalendar%2Ftree%2Fmain%2FDownloadMe) or clone this repository's [DownloadMe](https://github.com/LimJiaEarn/PersonalFinanceCalendar/tree/main/DownloadMe). 
@@ -84,7 +82,7 @@ Monthly Page:
 * You are ready to start building your calendar after this!
 
 
-### Buidling in Windows:
+### Building in Windows:
 
 Note: Before you start building, please read the [Customisation Guide](#customisation-guide) so you can fully utilise the customisation features!
 
