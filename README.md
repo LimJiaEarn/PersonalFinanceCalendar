@@ -7,7 +7,7 @@
 - [Samples / Examples](#samples-/-examples)
     - [For Students](#for-students)
     - [For Working Adults](#for-working-adults)
-- [Installation Guide](#installation-guide)
+- [Installation and Build Guide](#installation-and-build-guide)
 - [Customisation Guide](#customisation-guide)
     - [Themes](#themes)
     - [Data Dictionary](#data-dictionary) 
@@ -67,8 +67,51 @@ Monthly Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Working%20Adult%20Sample%20Monthly.PNG)
 <br /><br />
-## Installation Guide
-<br /><br />
+## Installation and Build Guide
+
+
+
+## Installation and Build Guide 
+
+### Installing in Windows:
+
+* [Download](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2FLimJiaEarn%2FPersonalFinanceCalendar%2Ftree%2Fmain%2FDownloadMe) or clone this repository's [DownloadMe](https://github.com/LimJiaEarn/PersonalFinanceCalendar/tree/main/DownloadMe). 
+* You are highly encouraged to extract/store the downloaded files in a single folder
+* Launch Command Prompt and change directory to the folder you have installed the files in. 
+![plot](https://github.com/LimJiaEarn/PersonalFinanceCalendar/blob/main/README_docs/Overview%20Theme%20Tropical.PNG)
+
+* 'pip install openpyxl' to install Openpyxl Library, you may read how to [install packages](https://packaging.python.org/en/latest/tutorials/installing-packages/) should you need more assistance
+* You are ready to start building your calendar after this!
+
+
+### Buidling in Windows:
+
+Note: Before you start building, please read the [Customisation Guide](#customisation-guide) so you can fully utilise the customisation features!
+
+* 'python CalendarSettingEditor.py' to starting running the python script
+* Enter 1 (Loading previous Calendar Settings is still under construction)
+* Enter the year of your Calendar
+* Enter the [theme](#themes) for your Calendar
+* You may go through each selection to edit your [Header and Weekly Titles](#data-dictionary) (Some default titles are set for you).
+* Once done, enter 0 to proceed
+* You may go through each selection to edit your [Accounting Rows](#accounting-rows)
+* Once done, enter 0 to proceed
+* You may go through each selection to edit your [Overview Page](#overview-page)
+* Once done, enter 0 to proceed
+
+=== At this point, your setting has been saved under a text file titled "YourCalendarSettings" ===
+
+Initialise Calendar Now:
+* Enter 1
+* Enter your file name you would like (e.g. MyCalendar, MyFinances)
+
+Initialise Calendar In Future:
+* 'python PFC_CalendarInitialiser.py' to starting running the python script
+* Enter your file name you would like (e.g. MyCalendar, MyFinances)
+
+=== Congratulations you have successfully built your Calendar! ===
+
+
 ## Customisation Guide 
 
 
@@ -103,7 +146,7 @@ Monthly Page:
 
 
 
-Overview Page:
+####Overview Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Overview%20Page.PNG)
 
@@ -116,7 +159,7 @@ Overview Page:
 #### Expenses Breakdown (/ Titles) - Fourth tab
 
 
-Monthly Page:
+####Monthly Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Monthly%20Page.PNG)
 
