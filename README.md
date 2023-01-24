@@ -3,6 +3,7 @@
 
 ## Table of contents
 - [Introduction](#introduction)
+- [Features](#features)
 - [Samples / Examples](#samples-/-examples)
     - [For Students](#for-students)
     - [For Working Adults](#for-working-adults)
@@ -10,6 +11,7 @@
 - [Customisation Guide](#customisation-guide)
     - [Themes](#themes)
     - [Data Dictionary](#data-dictionary) 
+- [Feedback](#feedback)
 - [Technologies Used](#technologies-used)
 
 
@@ -21,6 +23,12 @@ Your finances are recorded on [accounting rows](https://github.com/LimJiaEarn/Pe
 summed (more features such as calculating %, savings will be added). The design mimics a calendar for a more aesthetic interface with up to 3 [themes](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README.md#themes) to choose from!
 
 You are highly recommended to read the [Customisation Guide](#customisation-guide) to fully utilise the customisation features built in this program!
+
+
+
+## Features
+
+
 
 
 ## Samples / Examples
@@ -126,6 +134,10 @@ Accounting Rows are split to two types
 #### Summation Rows
 Summation Rows are customised rows where you choose the titles you want to add together for a more personalised overview page.
 Example: Miscellaneous row can be added to sum up rows not chosen to presented in overview tab
+
+
+## Feedback
+If you would like to report bugs or file feature requests, you are welcomed to do so [here](https://github.com/LimJiaEarn/PersonalFinanceCalendar/issues/new)
 
 
 
