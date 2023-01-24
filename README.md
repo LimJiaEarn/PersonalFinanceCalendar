@@ -28,12 +28,19 @@ You are highly recommended to read the [Customisation Guide](#customisation-guid
 
 ## Features
 
+A few of the things you can do with this project
 
-
-
-## Samples / Examples
+* Customise the categorisation of your incomes & expenses 
+* Personalise the color theme of your calendar
+* View your daily/monthly incomes & expenses 
+* Collate your daily/monthly incomes & expenses 
+* Review your incomes & expenses 
 <br /><br />
+## Samples / Examples
+
+
 ### For Students
+
 
 
 Overview Page:
@@ -61,14 +68,11 @@ Monthly Page:
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Working%20Adult%20Sample%20Monthly.PNG)
 <br /><br />
 ## Installation Guide
-
-
-
-
-
-
-## Customisation Guide 
 <br /><br />
+## Customisation Guide 
+
+
+
 ### Themes
 
 #### Tropical Theme (Overview Page)
@@ -97,6 +101,8 @@ Monthly Page:
 
 #### Visual representation of terms used:
 
+
+
 Overview Page:
 
 ![plot](https://github.com/LimJiaEarn/PersonalFinanceTracker/blob/main/README_docs/Annotated%20Overview%20Page.PNG)
@@ -120,10 +126,7 @@ Monthly Page:
 #### Right Header  (/ Titles) - Top right
 
 #### Weekly Rows (/ Titles) - Left main section
-
-
-
-
+<br /><br />
 #### Accounting Rows
 Accounting Rows are preset rows where you will enter the numerical value of your money movements (e.g. Rent, Meals).
 Accounting Rows are split to two types
@@ -134,13 +137,10 @@ Accounting Rows are split to two types
 #### Summation Rows
 Summation Rows are customised rows where you choose the titles you want to add together for a more personalised overview page.
 Example: Miscellaneous row can be added to sum up rows not chosen to presented in overview tab
-
-
+<br /><br />
 ## Feedback
 If you would like to report bugs or file feature requests, you are welcomed to do so [here](https://github.com/LimJiaEarn/PersonalFinanceCalendar/issues/new)
-
-
-
+<br /><br />
 ## Technologies Used
 This script is written 100% in python with the assistance of Openpyxl and a subset of json library.
 To read more on openpyxl, its documentation is available at https://openpyxl.readthedocs.io/en/stable/
