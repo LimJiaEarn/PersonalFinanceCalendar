@@ -166,13 +166,12 @@ Initialise Calendar In Future:
 #### Right Header  (/ Titles) - Top right
 
 #### Weekly Rows (/ Titles) - Left main section
-<br /><br />
+
 #### Accounting Rows
 Accounting Rows are preset rows where you will enter the numerical value of your money movements (e.g. Rent, Meals).
 Accounting Rows are split to two types
 1) Inflow - Adds to your financials (Salary)
 2) Expenses - Deducts from your financials (Meals)
-
 
 #### Summation Rows
 Summation Rows are customised rows where you choose the titles you want to add together for a more personalised overview page.
