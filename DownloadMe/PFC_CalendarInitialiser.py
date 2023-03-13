@@ -11,18 +11,6 @@ YEAR = INPUT_DICT[list(INPUT_DICT)[0]]
 startDayOfMonth = calendar.day_name[datetime.datetime.strptime('01 01 '+str(YEAR), '%d %m %Y').weekday() ]
 startDayOfMonth_index = daysOfWeek.index(startDayOfMonth) #initially set to start day of jan(start of new year), re-used for subsequent months
 
-#Index 0 - YEAR
-#Index 1 - CalendarDaysAndMonths
-#Index 2 - START_DAY -> 0 is Monday, 6 is Sunday
-#Index 3 - left_headerTitles
-#Index 4 - right_headerTitles
-#Index 5 - week titles
-#Index 6 - Main Inflow Overview
-#Index 7 - Main Expenses Overview 
-#Index 8 - Inflow Breakdown
-#Index 9 - Outflow Breakdown
-#Index 10 - Theme Colors
-
 #Rows needed to offset before the first row of main data, absolute +3 because of seperator cells
 rowOffset_header = max(len(INPUT_DICT[list(INPUT_DICT)[3]]), len(INPUT_DICT[list(INPUT_DICT)[4]])) +3
 #Rows needed to offset in each week's block, absolute +1 because of seperator cells

@@ -1,21 +1,3 @@
-#This dictionary stores everything we need to initialise the calendar where its value will be initialised systematically by default or by user
-#It is initialised with default values
-#Index 0 - YEAR
-#Index 1 - CalendarDaysAndMonths
-#Index 2 - START_DAY -> 0 is Monday, 6 is Sunday
-#Index 3 - left_headerTitles
-#Index 4 - right_headerTitles
-#Index 5 - week titles
-#Index 6 - Main Inflow Overview
-#Index 7 - Main Expenses Overview 
-#Index 8 - Inflow Breakdown
-#Index 9 - Outflow Breakdown
-#Index 10 - Theme Colors
-
-#Title, flowType, 1-header / 2-week, summation titles**
-#1 - Inflow
-#2 - Outflow
-
 # Contains all python code for UI
 #These are the default titles, there will be no change to this
 left_headerTitles_original = {"Income":1, "Investments/Dividends":1, "Comments":0}
