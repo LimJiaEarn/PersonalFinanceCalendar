@@ -1,6 +1,5 @@
 import PFC_UserBackend, json
 
-
 print("Welcome!\nEnter\n1 : Customise Calendar from default\n2 : Load previous Calendar settings (2nd time users)")
 loop=True
 while (loop):
@@ -29,25 +28,6 @@ while (loop):
             PFC_UserBackend.setYEAR()
             loop=False
             print("debug")
-            
-            # print("Before proceeding, please ensure you have the correct file name: YourCalendarSettings")
-            # print("Tip: You may go change the file before proceeding again without closing this application")
-            # loop2=True
-            # while (loop):
-            #     try:
-            #         confirm = int(input("Enter 1 to confirm: "))
-
-            #         if (confirm==1):
-            #             USER_DICT = json.load(open("YourCalendarSettings.txt"))
-            #             PFC_UserBackend.setRETURN_DICT(USER_DICT)
-            #             if (PFC_UserBackend.setYEAR()):
-            #                 while (PFC_UserBackend.UserMainSelection1()):
-            #                     continue
-            #             loop2=False
-            #             loop=False
-
-            #     except ValueError:
-            #         print("Error! Type 1 to confirm")
 
     except ValueError:
         print("Enter 1 or 2!")
@@ -70,6 +50,5 @@ while True:
 
     except ValueError:
         print("Invalid input!")
-
 
 print("Exiting Application...")

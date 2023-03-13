@@ -1,10 +1,3 @@
-# Contains all python code for UI
-#These are the default titles, there will be no change to this
-left_headerTitles_original = {"Income":1, "Investments/Dividends":1, "Comments":0}
-right_headerTitles_original = {"Rent":2, "Subscriptions":2, "Comments":0}
-week_titles_original = {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0}
-
-
 #This dictionary stores everything we need to initialise the calendar where its value will be initialised systematically by default or by user
 #It is initialised with default values
 #Index 0 - YEAR
@@ -23,7 +16,14 @@ week_titles_original = {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Tr
 #1 - Inflow
 #2 - Outflow
 
-
+# Contains all python code for UI
+#These are the default titles, there will be no change to this
+left_headerTitles_original = {"Income":1, "Investments/Dividends":1, "Comments":0}
+right_headerTitles_original = {"Rent":2, "Subscriptions":2, "Comments":0}
+week_titles_original = {"Date":0, "Notes":0, "Inflow":1,"Inflow Category":0, "Transport":2, "Meals":2, "Others":2,"Others Category":0}
+ThemeColors_Tropical = ["EE8EB3", "D9D9D9", "9EAAF0", "AFB7C9", "81C4E5","91D9D9","20C220", "C5F7CA", "F3C9DE", "6BA4EF", ["C3D2F9", "DEF2A0", "E0ADE9", "C1F6F5", "C0BFEF", "EED2B8"], "DCDCDC"]                
+ThemeColors_Desert = ['AE4E38', 'D9D9D9', 'DB8065', 'DF915E', 'A8A7A7', 'A5887A', 'C8C8A9', 'DAC4B3', 'F99DA6', 'E8E8E8', ['A8E6CE', 'DCEDC2', 'FFD3B5', 'FFAAA6', 'FF8C94', 'CC527A'], 'D0B7AC']
+ThemeColors_Modern = ['B5C2C7', 'DFDBD8', 'E7CAC2', 'E6E6E6', '768A96', '9BD7D1', 'D37556', 'E3C1B4', 'DFEBF6', 'D8B26E', ['D4E8DC', 'E6D0CA', 'EEE4DB', 'E2E0D5', 'DAD5D2', 'CEBEB9'], 'DBBFBB']
 
 RETURN_DICT = { "YEAR": 2023,\
                 "CalendarDaysAndMonths": {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":31, "September":30, "October":31, "November":30, "December":31},\
@@ -38,29 +38,9 @@ RETURN_DICT = { "YEAR": 2023,\
                 "Theme Colors":[]\
               }
 
-ThemeColors_Tropical = ["EE8EB3", "D9D9D9", "9EAAF0", "AFB7C9", "81C4E5","91D9D9","20C220", "C5F7CA", "F3C9DE", "6BA4EF", ["C3D2F9", "DEF2A0", "E0ADE9", "C1F6F5", "C0BFEF", "EED2B8"], "DCDCDC"]
-                
-ThemeColors_Desert = ['AE4E38', 'D9D9D9', 'DB8065', 'DF915E', 'A8A7A7', 'A5887A', 'C8C8A9', 'DAC4B3', 'F99DA6', 'E8E8E8', ['A8E6CE', 'DCEDC2', 'FFD3B5', 'FFAAA6', 'FF8C94', 'CC527A'], 'D0B7AC']
-
-ThemeColors_Modern = ['B5C2C7', 'DFDBD8', 'E7CAC2', 'E6E6E6', '768A96', '9BD7D1', 'D37556', 'E3C1B4', 'DFEBF6', 'D8B26E', ['D4E8DC', 'E6D0CA', 'EEE4DB', 'E2E0D5', 'DAD5D2', 'CEBEB9'], 'DBBFBB']
-
-
-#For debugging
-def printRETURN_DICT():
-    print("=====Debugging: Check DICT=====")
-    for key, value in RETURN_DICT.items():
-        print(f"key: {key}, value: {value}")
-
-    print("===============================")
-    return
-
 #Last function call
 def END():
     return RETURN_DICT
-
-
-def setRETURN_DICT(User_Dictionary):
-    RETURN_DICT = User_Dictionary
 
 def setYEAR():
     while True:
@@ -103,20 +83,13 @@ def updateRETURN_DICT(keyIndex, newValue):
 
     if (keyIndex==0):
         RETURN_DICT[list(RETURN_DICT)[keyIndex]] = newValue
-
     #We only edit index 1 for leap years so newValue passed in is the new Feb days only
     elif (keyIndex==1):
         RETURN_DICT[list(RETURN_DICT)[keyIndex]]["February"] = newValue
-    
     elif (keyIndex==2):
         RETURN_DICT[list(RETURN_DICT)[keyIndex]] = newValue
-
-
-
     else:
         print("Bug1!")
-
-
     return
 
 
@@ -127,7 +100,6 @@ def UserSelection1Direct(selection1):
         setSTART_DAY()
     elif (selection1==2):
         EditHeaderTitles(3)
-    
     elif (selection1==3):
         EditHeaderTitles(4)
     #Edit Weekly Rows
@@ -188,7 +160,6 @@ def EditWeekTitles():
             print(f"{i+1}: {list(RETURN_DICT[list(RETURN_DICT)[5]])[i]}" )
         print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename title\n4 - Re-order titles\n5 - Revert to default week titles\n0 - Save and exit")
         try:
-            
             choice = int(input("Selection: "))
 
             if (choice<0 or choice>5):
@@ -204,14 +175,13 @@ def EditWeekTitles():
                         RETURN_DICT[list(RETURN_DICT)[5]][newWeekTitle] = 0 #Accounting value set to 0 as default
                         print("Successfully added title!")
                         break
-            
+
             #Removing week titles
             elif (choice==2):
                 print("NOTE: You are not allowed to remove Date")
                 print("Current week titles")
                 for i in range(1, len(RETURN_DICT[list(RETURN_DICT)[5]])):
-                    print(f"Index {i}: {list(RETURN_DICT[list(RETURN_DICT)[5]])[i]}" )
-                    
+                    print(f"Index {i}: {list(RETURN_DICT[list(RETURN_DICT)[5]])[i]}" )    
                 print("Enter index of week title to remove: ")
                 loop=True
                 while (loop):
@@ -222,12 +192,10 @@ def EditWeekTitles():
                         else:
                             del RETURN_DICT[list(RETURN_DICT)[5]][list(RETURN_DICT[list(RETURN_DICT)[5]])[index]]
                             print("Successfully removed title!")
-                            loop=False
-                        
+                            loop=False                   
                     except ValueError:
                         print("Invalid index, it should be a number!")
                     
-            
             #Rename week titles
             elif (choice==3):
                 print("Current week titles")
@@ -276,6 +244,7 @@ def EditWeekTitles():
         except ValueError:
             print("Error!")
 
+
 def reOrder(Dictionary, startIndex):
     temp_dictionary={}
     check = [] #To check and ensure user do not enter repeated indexes
@@ -318,6 +287,7 @@ def EditHeaderTitles(dictIndex):
         print("Enter\n1 - Add title\n2 - Remove title\n3 - Rename titles\n4 - Re-order titles\n5 - Revert to default headers\n0 - Save and exit")
         try:
             choice = int(input("Enter: "))
+
             #Check for valid choice number
             if (choice<0 or choice>5):
                 print("Error!")
@@ -351,11 +321,9 @@ def EditHeaderTitles(dictIndex):
                             del RETURN_DICT[list(RETURN_DICT)[dictIndex]][list(RETURN_DICT[list(RETURN_DICT)[dictIndex]])[index]]
                             print("Successfully removed title!")
                             loop=False
-
                     except ValueError:
                         print("Invalid index, it should be a number!")
 
-                
             #Renaming header titles
             elif (choice==3):
                 print("Current header titles")
@@ -383,7 +351,6 @@ def EditHeaderTitles(dictIndex):
                             loop=False
                     except ValueError:
                         print("Invalid index, it should be a number!")
-                    
                 
             #Reordering header titles
             elif (choice==4):  
@@ -513,8 +480,6 @@ def AccountingRowsEditor(dict_Index):
         except ValueError:
             print("Invalid selection! Use numbers")
 
-
-
 ##========================================================================================================================#
 
 def BreakdownRowsInitialise():
@@ -553,7 +518,6 @@ def UserSelection3Direct(selection3):
     return
 
 #This function will keep looping the menu till user enters 0 to proceed, it calls UserSelection3Direct() to enter the right sub directories
-#
 def UserMainSelection3():
     print("Now you may choose to customise a yearly overview page\nNote: Overview is empty by default, Breakdown contains all accounting rows by default")
     while True:
@@ -583,7 +547,6 @@ def UserMainSelection3():
             except ValueError:
                 print("Invalid selection! Use numbers")
 
-#
 def InflowOutflowRowsPrinter(flowType):
     if (flowType==1):
         print("==========\nList of rows for Inflow: ")
@@ -600,7 +563,6 @@ def InflowOutflowRowsPrinter(flowType):
         print("NIL")
     print("==========")
 
-#
 def checkAccounting(titleTC, acctVal):
     for di in range(3, 6):
         for title in RETURN_DICT[list(RETURN_DICT)[di]]:
@@ -610,7 +572,6 @@ def checkAccounting(titleTC, acctVal):
     return False
 
 #If no more valid accounting rows can be added, let the user know
-#
 def checkMaxARows(dict_Index):
     num=0
     for di in range(3, 6):
@@ -622,14 +583,12 @@ def checkMaxARows(dict_Index):
     return False
 
 def checkHeaderWeekbyUser(title, hw):
-
     #Checking for user
     if (hw==1):
         for di in range(3, 5):
             if title in RETURN_DICT[list(RETURN_DICT)[di]]:
                 return hw
         return 0
-
     else:
         if title in RETURN_DICT[list(RETURN_DICT)[5]]:
             return hw
@@ -644,7 +603,6 @@ def getflowTypeAfterHeaderWeekByUser(title, hw):
                 return RETURN_DICT[list(RETURN_DICT)[di]][title]
         print("The title you chose is not from the header list!")
         return 0
-
     else:
         if title in RETURN_DICT[list(RETURN_DICT)[5]]:
             return RETURN_DICT[list(RETURN_DICT)[5]][title]
@@ -666,7 +624,6 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
             else:
                 #Add Row
                 if (choice==1):
-
                     doubleC=1
                     for tup in RETURN_DICT[list(RETURN_DICT)[dict_Index]]:
                         if (tup[0]==title):
@@ -691,7 +648,6 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                                     print("You entered an invalid number!")
                             except ValueError:
                                 print("You entered an invalid number!")
-
                 #Remove row
                 else:
                     ch=0
@@ -707,7 +663,6 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
 
     #choice=4 -> Summation rows
     else:
-
         #Given flowType already
         sumRowTitle = input("Enter your Summation Row name: ")
         if (flowType==1):
@@ -730,9 +685,7 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                 for tup in check:
                     print(f"{count}) {tup[0]}")
                     count+=1
-            print() #Print empty line for better visual
-
-            print("Enter EXIT if you have no more titles to add")
+            print("\nEnter EXIT if you have no more titles to add")
             sumRowAdd = input("Title: ")        
 
             if (sumRowAdd != "EXIT"):
@@ -742,8 +695,7 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                         hw = int(input("Enter 1 if your title is from headers and 2 if your title is from week: "))
                         if (hw==1 or hw==2):
 
-                            if(checkHeaderWeekbyUser(sumRowAdd, hw)!=0 and getflowTypeAfterHeaderWeekByUser(sumRowAdd, hw)==flowType): #Checks for correctness
-                                
+                            if(checkHeaderWeekbyUser(sumRowAdd, hw)!=0 and getflowTypeAfterHeaderWeekByUser(sumRowAdd, hw)==flowType): #Checks for correctness                               
                                 if ((sumRowAdd, hw) not in check): #Checks for duplicate
                                     check.append((sumRowAdd, hw))
                                 else:
@@ -756,6 +708,7 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                                 else:
                                     print("We could not find your title in weeks")
                                 loop2=False #This makes user enter both title and header/week index again
+                            
                             elif (getflowTypeAfterHeaderWeekByUser(sumRowAdd, hw)!=flowType):
                                 print("You entered a title of the wrong flow type")
                                 loop2=False
@@ -763,22 +716,18 @@ def OverviewRowsEditor2(dict_Index, choice, flowType):
                             print("You entered an invalid number!")
                     except ValueError:
                         print("You entered an invalid number!")
-
             else:
                 loop=False
 
         #Update check to list, current instance summation row is always the last one
         RETURN_DICT[list(RETURN_DICT)[dict_Index]][len(RETURN_DICT[list(RETURN_DICT)[dict_Index]])-1][3] = check
-
         print("Successfully added Summation row: "+ sumRowTitle)
         print("This is immutable, however you may choose to remove this row and edit again")
-
     return
 
 def reOrder2(reOrderList, startIndex):
     temp_list=[]
     check = [] #To check and ensure user do not enter repeated indexes
-    
     length = len(reOrderList)
     for i in range(startIndex, length):
         print(f"Index {i+1}: {reOrderList[i][0]}")
@@ -801,6 +750,7 @@ def reOrder2(reOrderList, startIndex):
                 check.append(index)
                 index-=1 
                 break   
+
         temp_list.append(reOrderList[index])
     reOrderList.clear()
     reOrderList = temp_list
@@ -821,7 +771,6 @@ def OverviewRowsEditor(dict_Index):
             print(f"{m}) {title[0]}")
         if (m==0):                
             print("NIL")
-
         print("Enter a selection below")
         print("1 : Add row")
         print("2 : Remove row")
